@@ -1,0 +1,83 @@
+.newestHome{
+    width: 100%;
+}
+
+.newestHome .container{
+    padding: 3rem calc((100vw - 1300px) / 2);
+    display: flex;
+    flex-direction: column;
+}
+
+.newestHome .container h1{
+    font-size: 35px;
+    color: var(--bg-1);
+}
+
+.newestHome .container .content{
+    display: flex;
+    width: 100%;
+}
+
+.newestHome .container .content .card{
+    flex: 1;
+    padding: 20px;
+}
+
+.newestHome .container .content .card:nth-child(2){
+    margin-top: 60px;
+}
+
+.newestHome .container .content .card img{
+    width: 100%;
+}
+
+.newestHome .container .content .card p{
+    font-size: 24px;
+    color: var(--bg-1);
+    margin-top: 15px;
+    margin-bottom: 20px;
+}
+
+.newestHome .container .content .card .btn{
+    font-size: 19px;
+    display: flex;
+    align-items: center;
+    transition: .3s ease;
+}
+
+.newestHome .container .content .card .btn:hover{
+    transform: scale(1.02);
+}
+
+.newestHome .container .content .card .btn .icon{
+    font-size: 18px;
+    margin-left: 5px;
+}
+
+.newestHome .more{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+@media screen and (max-width: 768px){
+    .newestHome .container{
+        padding-left: 40px;
+        padding-right: 40px;
+    }
+
+    .newestHome .container .content{
+        flex-direction: column;
+    }
+    .newestHome .container .content .card:nth-child(2){
+        margin-top: 0;
+    }
+
+}
+
+@media screen and (max-width: 480px){
+    .newestHome h1{
+        font-size: 30px;
+    }
+    
+}

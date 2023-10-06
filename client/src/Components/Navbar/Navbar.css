@@ -1,0 +1,120 @@
+.nav{
+    height: 60px;
+    color: var(--second-color);
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem 2rem;
+    position: fixed;
+    width: 100%;
+    z-index: 999;
+    align-items: center;
+}
+
+.nav.scroll{
+    background: var(--bg-1);
+    transition: .4s ease-in-out;
+}
+
+.nav.none{
+    background: transparent;
+}
+
+.nav.show{
+    background: var(--bg-1);
+}
+
+.nav .logo{
+    font-style: italic;
+    text-shadow: 0px 0px 20px rgba(0,0,0,0.4);
+}
+
+.nav .navMenu{
+    display: flex;
+    align-items: center;
+}
+
+.nav .navMenu .menuItem{
+    padding: 0 1rem;
+    height: 100%;
+    font-size: 19px;
+    text-shadow: 0px 0px 20px rgba(0,0,0,0.4);
+    transition: .3 ease-in-out;
+}
+
+.nav .navMenu .menuItem:hover{
+    color: var(--bg-2);
+}
+
+.nav .icon{
+    display: none;
+}
+
+.nav .btn{
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    position: relative;
+}
+
+.nav .btn .btn-top{
+    display: flex;
+    gap: 10px;
+}
+
+.nav .btn .profile .profile-icon{
+    color: var(--second-color);
+    cursor: pointer;
+    font-size: 40px;
+}
+
+.nav .btn .profile .card{
+    display: flex;
+    position: absolute;
+    flex-direction: column;
+    padding: 10px;
+    gap: 10px;
+    background: var(--second-color);
+    color: var(--primary-color);
+    left: 420px;
+    top: -100px;
+    font-size: 17px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 32px -2px rgba(0,0,0,0.75);
+    -webkit-box-shadow: 0px 0px 32px -2px rgba(0,0,0,0.75);
+    -moz-box-shadow: 0px 0px 32px -2px rgba(0,0,0,0.75);
+    transition: 0.3s ease-in-out;
+}
+
+.nav .btn .profile:hover .card{
+    top: 40px;
+}
+
+.nav .btn .profile .card span:hover{
+    color: var(--bg-2);
+}
+
+@media screen and (max-width: 768px) {
+    .nav .navMenu{
+        display: none;
+    }
+
+    .nav .btn{
+        display: none;
+    }
+
+    .nav .icon{
+        display: block;
+        font-size: 40px;
+        cursor: pointer;
+    }
+}
+
+@media screen and (max-width: 450px) {
+    .nav{
+        padding: 1rem 1rem;
+    }
+
+    .nav .logo{
+        font-size: 25px;
+    }
+}

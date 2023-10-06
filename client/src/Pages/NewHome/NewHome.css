@@ -1,0 +1,72 @@
+.newHome{
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.newHome .newHome-container{
+    padding-top: 60px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.newHome .newHome-container h2{
+    margin-top: 30px;
+}
+
+.newHome .newHome-container form{
+    display: flex;
+    width: 70%;
+    flex-direction: column;
+    padding: 20px;
+    border: 2px solid var(--bg-1);
+    margin-top: 20px;
+    margin-bottom: 30px;
+    border-radius: 20px;
+    color: var(--bg-1);
+}
+
+.newHome .newHome-container form .input-area{
+    margin-bottom: 30px;
+}
+
+.newHome .newHome-container form .input-area label{
+    font-size: 19px;
+    font-weight: 600;
+}
+
+.newHome .newHome-container form input{
+    color: var(--bg-1);
+    width: 100%;
+    border-bottom: 2px solid var(--bg-1);
+}
+
+.newHome .newHome-container form textarea{
+    color: var(--bg-1);
+    border: 2px solid var(--bg-1);
+    resize: none;
+}
+
+.newHome .newHome-container form .button{
+    background: none;
+    width: 100%;
+}
+
+.newHome .newHome-container form .submit{
+    width: 100%;
+    background: var(--bg-1);
+    transition: 0.3s ease-in-out;
+    cursor: pointer;
+}
+
+
+@media screen and (max-width: 768px) {
+    .newHome .newHome-container form{
+        width: 100%;
+    }
+}

@@ -1,0 +1,25 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "Rilzain solution website 'real estate'",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "realestate"
+  ],
+  "author": "success akinyemi",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "jsonwebtoken": "^9.0.2",
+    "mailgen": "^2.0.27",
+    "mongoose": "^7.5.3",
+    "nodemailer": "^6.9.5",
+    "nodemon": "^3.0.1"
+  }
+}

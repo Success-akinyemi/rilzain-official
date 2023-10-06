@@ -1,0 +1,78 @@
+form{
+    width: 90%;
+    max-width: 600px;
+}
+
+form .title{
+    margin-bottom: 20px;
+    color: var(--bg-2);
+}
+
+form .input-group{
+    margin-bottom: 20px;
+ 
+}
+
+input, textarea{
+    width: 100%;
+    padding: 5px;
+    outline: navy;
+    border:  1px solid var(--second-color);
+    color: var(--second-color);
+    font-size: 19px;
+    background: transparent;
+    transition: 0.2s;
+    
+}
+
+form textarea{
+    resize: none;
+}
+
+.c-label{
+    left: 0;
+    top: 0;
+    padding: 5px;
+    cursor: text;
+    color: var(--second-color);
+    display: flex;
+    
+    align-items: center;
+    border-radius: 20px;
+}
+
+form .icon{
+    color: var(--second-color);
+}
+
+form button{
+    padding: 10px 0;
+    color: var(--primary-color);
+    background: var(--bg-1);
+    width: 100%;
+    cursor: pointer;
+    outline: none;
+    border: none;
+    color: var(--second-color);
+    font-size: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    transition: .3s ease-in-out;
+}
+
+form button:hover{
+    transform: scale(0.97);
+}
+
+form button .icon{
+    color: var(--second-color);
+}
+
+input:focus ~ .c-label,
+input:valid ~ .c-label,
+textarea:valid ~ .c-label,
+textarea:focus ~ .c-label{
+    border:  2px solid var(--bg-1);
+}

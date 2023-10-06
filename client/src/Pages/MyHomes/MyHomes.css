@@ -1,0 +1,10 @@
+.myHomes{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.myHomes .myHomes-container{
+    padding-top: 70px;
+}

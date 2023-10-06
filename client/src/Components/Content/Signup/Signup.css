@@ -1,0 +1,18 @@
+.box-register{
+    position: absolute;
+    width: 85%;
+    /*right: -350px;*/
+    /*left: 27px;*/
+    transition: .4s ease-in-out;
+}
+
+.box-register.show{
+    left: 27px;
+    right: 350px;
+    transition: .4s ease-in-out;
+}
+
+.box-register.hide{
+    right: -350px;
+    transition: .4s ease-in-out;
+}

@@ -1,0 +1,111 @@
+.dropDown{
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    z-index: 1000;
+    background: var(--bg-1);
+    display: grid;
+    align-items: center;
+    opacity: 0;
+    transition: 0.4s ease-in-out;
+    color: var(--second-color);
+}
+
+.dropDown.open{
+    top: 0;
+    opacity: 1;
+}
+
+.dropDown.close{
+    left: 0;
+    top: -100%;
+}
+
+.dropDown .closeBtn{
+    position: absolute;
+    top: 1.5rem;
+    right: 1.7rem;
+    background: transparent;
+    cursor: pointer;
+}
+
+.dropDown .closeBtn .icon{
+    font-size: 2.5rem;
+    font-weight: 600;
+}
+
+.dropDown .menu{
+    display: grid;
+    grid-template-columns: 1fr;
+    text-align: center;
+    margin-bottom: 4rem;
+    grid-template-rows: (4, 80px);
+}
+
+.dropDown .menu .menuList{
+    color: var(--second-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.7rem;
+    transition: 0.3 ease-in-out;
+    margin-bottom: 2rem;
+}
+
+.dropDown .menu .menuList:hover{
+    color: var(--bg-2);
+}
+
+.dropDown .btn{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+
+.dropDown .btn .btn-top{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.dropDown .btn .btn-top .text{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.dropDown .btn .btn-top .text .icon{
+    font-size: 30px;
+}
+
+.dropDown .btn .card{
+    display: flex;
+    flex-direction: column;
+    margin-top: 40px;
+    gap: 15px;
+}
+
+.dropDown .btn .card .link{
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    font-size: 20px;
+}
+
+.dropDown .btn .card span{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+@media screen and (max-width: 480px){
+    .dropDown .menu{
+        grid-template-rows: (4, 60px);
+    }
+}

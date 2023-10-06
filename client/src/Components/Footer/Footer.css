@@ -1,0 +1,94 @@
+.footer{
+    width: 100%;
+    background: var(--bg-1);
+    margin-top: auto;
+    padding: 100px 50px;
+    display: flex;
+    align-items: start;
+}
+
+.footer .left{
+    flex: 7;
+}
+
+.footer .left h1{
+    font-size: 80px;
+    color: var(--bg-2);
+    line-height: 80px;
+}
+
+.footer .left .links{
+    margin-top: 60px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.footer .left .links .icon{
+    font-size: 45px;
+    cursor: pointer;
+    color: var(--second-color);
+    transition: 0.3s ease-in-out;
+}
+
+.footer .left .links .icon:hover{
+    color: var(--bg-2);
+}
+
+.footer .right{
+    flex: 3;
+    color: var(--second-color);
+    display: flex;
+    flex-direction: column;
+}
+
+.footer .right .card{
+    display: flex;
+    gap: 50px;
+}
+
+.footer .right .card .one,
+.footer .right .card .two{
+    display: flex;
+    flex-direction: column;
+}
+
+.footer .right .card .one .title,
+.footer .right .card .two .title{
+    font-weight: 600;
+    margin-top: 40px;
+}
+
+.footer .right .card .one .link,
+.footer .right .card .two .link{
+    margin-bottom: 15px;
+    font-size: 18px;
+}
+
+.footer .right .chat{
+    margin-top: 40px;
+    margin-left: 70px;
+}
+
+.footer .right .chat .text{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+}
+
+@media screen and (max-width: 768px){
+    .footer{
+        padding: 100px 25px;
+    }
+    .footer .left h1{
+        font-size: 60px;
+    }
+}
+
+@media screen and (max-width: 450px){
+    .footer{
+        flex-direction: column;
+    }
+
+}

@@ -1,0 +1,226 @@
+.homes{
+    width: 100%;
+}
+
+.homes .home-container{
+    padding-top: 60px;
+    margin-bottom: 40px;
+}
+
+.homes .search{
+    width: 100%;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--bg-1);
+    border-top: 2px solid var(--bg-1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    background: var(--second-color);
+    z-index: 20;
+    margin-top: 30px;
+}
+
+.homes .search .search-box{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 60%;
+    background: var(--bg-1);
+}
+
+.homes .search .search-box input{
+    border: 1px solid var(--bg-1);
+    color: var(--bg-1);
+    background: var(--second-color);
+    height: 100%;
+}
+
+.homes .search .search-box .search-icon{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.homes .home-container .search-box .search-icon .icon{
+    color: var(--second-color);
+    font-size: 30px;
+    cursor: pointer;
+}
+
+.homes .home-container .title{
+    margin-left: 5px;
+    font-size: 20px;
+    font-weight: 600;
+    position: fixed;
+    width: 100%;
+    background: var(--second-color);
+    height: 30px;
+    z-index: 20;
+}
+
+.homes .home-container h1{
+    color: var(--bg-1);
+    text-align: center;
+    margin-top: 100px;
+}
+
+.homes .home-container .content{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.homes .home-container .content .card{
+    width: 450px;
+    padding: 20px;
+    overflow: hidden;
+}
+
+.homes .home-container .content .card img{
+    width: 100%;
+    transition: 0.3s ease-in-out;
+}
+
+.homes .home-container .content .card img:hover{
+    transform: scale(1.02);
+}
+
+.homes .home-container .content .card p{
+    font-size: 24px;
+    color: var(--bg-1);
+    margin-top: 15px;
+    margin-bottom: 20px;
+}
+
+.homes .home-container .content .card .btn{
+    font-size: 19px;
+    display: flex;
+    align-items: center;
+    transition: .3s ease;
+}
+
+.homes .home-container .content .card .btn:hover{
+    transform: scale(1.02);
+}
+
+.homes .home-container .content .card .btn .icon{
+    font-size: 18px;
+    margin-left: 5px;
+}
+
+.homes .home-container .content .card .img .overlay{
+    position: absolute;
+    top: -100%;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    color: var(--second-color);
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 20;
+}
+
+.homes .home-container .content .card .img .overlay .top{
+    display: flex;
+}
+
+.homes .home-container .content .card .img .overlay .top .actions{
+    margin-left: auto;
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+    margin-right: 10px;
+    gap: 10px;
+    align-items: center;
+}
+
+.homes .home-container .overlay .actions .fav,
+.homes .home-container .overlay .actions .add{
+    position: relative;
+    transition: 0.2s ease-in-out;
+}
+
+.homes .home-container .overlay .icon-1,
+.homes .home-container .overlay .icon-2{
+    font-size: 40px;
+    cursor: pointer;
+    transition: .3 ease-in-out;
+}
+
+.homes .home-container .overlay .small-1,
+.homes .home-container .overlay .small-2{
+    position: absolute;
+    z-index: 10;
+    bottom: -10px;
+    left: 6px;
+    color: var(--second-color);
+    font-size: 15px;
+    opacity: 0;
+}
+
+.homes .home-container .overlay .small-2{
+    left: -20px;
+    text-align: center;
+    bottom: -30px;
+}
+
+.homes .home-container .overlay .actions .fav:hover .small-1,
+.homes .home-container .overlay .actions .add:hover .small-2{
+    opacity: 1;
+}
+
+.homes .home-container .content .card .img{
+    position: relative;
+    transition: .3s ease-in-out;
+    overflow: hidden;
+}
+
+.homes .home-container .content .card .img:hover .overlay{
+    top: 0;
+}
+
+.homes .home-container .pagination{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.homes .home-container .pagination button{
+    padding: 8px;
+    border: none;
+    outline: none;
+    font-size: 17px;
+    color: var(--second-color);
+    background: var(--bg-1);
+    border-radius: 10px;
+    cursor: pointer;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.homes .home-container .pagination button:disabled{
+    cursor: not-allowed;
+}
+
+@media screen and (max-width: 768px) {
+    .homes .home-container .content .card{
+        width: 80%;
+    }
+}
+
+@media screen and (max-width: 450px) {
+    .homes .home-container .content .card{
+        width: 85%;
+    }
+
+    .homes .home-container .content .card p{
+        font-size: 22px;
+    }
+
+    .homes .search .search-box{
+        width: 90%;
+    }
+}
