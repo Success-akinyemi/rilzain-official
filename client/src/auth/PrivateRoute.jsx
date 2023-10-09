@@ -14,9 +14,28 @@ export const AdminUser = ({ children }) => {
     const authToken = localStorage.getItem('authToken')
     const { apiData } = useFetch()
     const isAdmin = apiData?.isAdmin
-    console.log('AA')
     if(!authToken && !isAdmin){
         return <Navigate to={'/'} replace={true}></Navigate>
+    }
+
+    return children
+}
+
+export const ValidToken = ({ children }) => {
+    const authToken = localStorage.getItem('authToken')
+
+    if(authToken){
+        const tokenData = JSON.parse(atob(authToken.split('.')[1]));
+        const currentTime = Date.now() / 1000;
+        const tokenExpiration = tokenData.exp
+        console.log('TOKEN DATA>>', tokenExpiration)
+        
+        if( currentTime > tokenExpiration ){
+            console.log('TOKEN EXPIRED')
+            return <Navigate to={'/registration'} replace={true}></Navigate>
+        }
+    } else {
+        return <Navigate to={'/registration'} replace={true}></Navigate>   
     }
 
     return children

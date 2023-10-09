@@ -6,9 +6,13 @@ import Protect from "../middleware/auth.js"
 const privateRouter = Router()
 
 //POST ROUTES
-privateRouter.route('/house/newHouse').post(Protect, controllers.newHouse)
-privateRouter.route('/house/like').post(controllers.likeHouse)
+privateRouter.route('/house/newHouse').post(Protect, controllers.newHouse);
+privateRouter.route('/house/like').post(controllers.likeHouse);
+//privateRouter.route('/house/addToFav').post(controllers.favHouse);
 
 //GET ROUTES
 privateRouter.route('/house/getHouse').get(controllers.getHouses)
+privateRouter.route('/house/getHouse/:id').get(controllers.getHouseById)
+
+
 export default privateRouter

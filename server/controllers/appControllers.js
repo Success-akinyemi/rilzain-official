@@ -1,38 +1,38 @@
 import HouseModel from "../models/House.js";
 
 export async function likeHouse(req, res){
-    const houseId = req.params.houseId;
+    const { house, user } = req.body
 
     try {
-        const house = await HouseModel.findById(houseId)
+        const likedHouse = await HouseModel.findById(house)
 
-        if(!house){
+        if(!likedHouse){
             res.status(404).json({ error: 'House not Found'})
         }
 
-        if(house.likes.includes(req.user._id)){
-            house.likes.pull(req.user._id)
+        if(likedHouse.likes.includes(user)){
+            likedHouse.likes.pull(user)
         } else{
-            house.likes.push(req.user._id)
+            likedHouse.likes.push(user)
         }
 
-        await house.save()
+        await likedHouse.save()
         
-        res.status(200).json({ message: 'Like Updated Successfully', status: 'success'})
+        res.status(200).json({ message: 'Like Updated Successfully', statusMsg: 'success'})
     } catch (error) {
         
     }
 }
 
 export async function newHouse(req, res){
-    const { title, price, desc, address, location, houseImage, imageArray } = req.body
-
+    const { title, price, desc, address, location, houseImageUrl, imageArray } = req.body
+    console.log('FROM SERVER', title, price, desc, address, location, houseImageUrl, imageArray)
     try {
         const newHouse = new HouseModel({
             title,
             price,
             desc,
-            image: houseImage,
+            image: houseImageUrl,
             address,
             location,
             imageArray
@@ -47,6 +47,7 @@ export async function newHouse(req, res){
                                 }
                             })
     } catch (error) {
+        console.log('Failed to upload to DB>>', error)
         res.status(400).json({error: 'Unable to save House', statusMsg: 'fail'})
     }
 }
@@ -70,4 +71,8 @@ export async function getHouses(req, res){
         console.error('Error fetching houses:', error);
         res.status(500).json({ error: 'Unable to fetch houses', statusMsg: 'fail' });
     }
+}
+
+export async function getHouseById(req, res){
+
 }

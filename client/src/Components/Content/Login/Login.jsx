@@ -27,7 +27,7 @@ function Login({isActive, toggle}) {
     e.preventDefault()
     try {
       setIsLoading(true)
-      const errorMsg = await loginUser({emailOrphoneNumber, password, toggle})
+      const errorMsg = await loginUser({emailOrphoneNumber, password})
 
       if(errorMsg){
         setError(errorMsg)
@@ -36,7 +36,7 @@ function Login({isActive, toggle}) {
         }, 3000)
       } else{
         navigate('/home')
-        toggle()
+        //toggle()
       }
     } catch (error) {
 

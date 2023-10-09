@@ -12,7 +12,7 @@ const SavedHouseSchema = new mongoose.Schema({
 })
 
 // Define a pre-remove middleware function
-savedHouseSchema.pre('remove', async function (next) {
+SavedHouseSchema.pre('remove', async function (next) {
     const houseId = this.houseId;
   
     try {

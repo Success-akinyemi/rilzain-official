@@ -27,18 +27,22 @@ function NewHome({ isOpen, toggle }) {
     }
 
     const uploadSingleImage = async (image) => {
-        const apiKey = 'ff3ebec50700af454ed0db3d1b8ac2ed'
+        //const apiKey = '6d207e02198a847aa98d0a2a901485a5'
+        //const format = 'json'
+
         const formData = new FormData();
-        formData.append('image', image);
+        //formData.append('key', apiKey);
+        formData.append('upload_preset', 'wtqdxw06');
+        formData.append('file', image);
 
         try {
-            const response = await fetch(`https://api.imgbb.com/1/upload?key=${apiKey}` ,{
+            const response = await fetch(`https://api.cloudinary.com/v1_1/dsjwuwjm1/image/upload` ,{
                 method: 'POST',
                 body: formData,
             })
             if(response.ok){
                 const imageData = await response.json();
-                return imageData.data.url;
+                return imageData.url;
             } else {
                 const errorResponse = await response.json();
                 throw new Error(`Failed to upload image: ${errorResponse.error.message}`);
@@ -72,7 +76,7 @@ function NewHome({ isOpen, toggle }) {
             console.log('Multiple Image Url:', multipleImageUrl );
             setHouseImage(houseImageUrl)
             setImageArray(multipleImageUrl)
-            const newHouse = await uploadHouse({ title, price, desc, address, location, houseImage, imageArray })
+            const newHouse = await uploadHouse({ title, price, desc, address, location, houseImageUrl, imageArray })
             
             if (newHouse === 'success') {
                 toast.success('House Uploaded');
@@ -144,6 +148,7 @@ function NewHome({ isOpen, toggle }) {
                 <div className="button">
                     <button className='submit' disabled={isLoading}>{isLoading ? 'Uploading New House...' : 'Add New House' }</button>
                 </div>
+
             </form>
         </div>
         <Footer />

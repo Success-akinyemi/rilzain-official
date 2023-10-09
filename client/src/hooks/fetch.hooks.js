@@ -2,8 +2,8 @@ import axios from 'axios'
 import { useEffect, useState } from 'react'
 import { getUser } from '../helpers/apis'
 
-//axios.defaults.baseURL = 'http://localhost:9000'
-axios.defaults.baseURL = 'https://rilzain-solutions-api.onrender.com'
+axios.defaults.baseURL = 'http://localhost:9000'
+//axios.defaults.baseURL = 'https://rilzain-solutions-api.onrender.com'
 
 
 /**Get User Details Hooks */
@@ -36,15 +36,22 @@ export function useFetch(query){
 }
 
 /**Get All Houses from Database */
-export function useFetchHouses(query){
+export function useFetchHouses(houseId = null){
     const [houseData, setHouseData] = useState({ isLoadingHouseData: true, apiHouseData: null, houseStatus: null, houseServerError: null })
-
+    
     useEffect(() => {
         const fetchHouseData = async () => {
             try {
-                const id = !query ? getUser() : '' 
-                
-                    const { data, status} = !query ? await axios.get(`/api/house/getHouse`) : await axios.get(`/api/house/getHouse/${id}`)
+                    //const id = !query ? getUser() : '' 
+                    let url;
+                    if(houseId){
+                        console.log('req')
+                        url = `/api/house/getHouse/${houseId}`
+                    }else{
+                        url = `/api/house/getHouse`
+                    }
+                    console.log(url)
+                    const { data, status} = await axios.get(url) 
                     console.log('House Data from Hooks>>>', data)
                 
                 if(status === 200){
@@ -57,6 +64,6 @@ export function useFetchHouses(query){
             }
         }
         fetchHouseData()
-    }, [query])
+    }, [houseId])
     return houseData
 }

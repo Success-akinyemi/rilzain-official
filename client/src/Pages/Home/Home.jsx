@@ -9,15 +9,20 @@ import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 import ArrowLeftIcon from '@mui/icons-material/ArrowLeft';
 import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 import PhoneIcon from '@mui/icons-material/Phone';
+import { useFetchHouses } from '../../hooks/fetch.hooks'
 
 
 function Home({ toggle, isOpen }) {
     const [current, setCurrent] = useState(0)
     const loc = useLocation()
     const pathName = loc.pathname.split('/')[2]
-    const { _id, address, desc, image, imageArray, location, price, title, } = homeData
+    console.log('ID', pathName)
+    //const { _id, address, desc, image, imageArray, location, price, title, } = homeData
+    const { isLoadingHouseData, apiHouseData, houseServerError, houseStatus } = useFetchHouses(pathName)
+    const { _id, address, desc, image, imageArray, location, price, title, } = apiHouseData || {}
 
-    const length = imageArray.length
+
+    const length = imageArray?.length
     const timeout = useRef(null)
 
     useEffect(() => {

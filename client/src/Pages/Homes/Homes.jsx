@@ -14,31 +14,44 @@ import AddIcon from '@mui/icons-material/Add';
 import { toast, Toaster } from 'react-hot-toast'
 import SearchIcon from '@mui/icons-material/Search';
 import { useFetch, useFetchHouses } from '../../hooks/fetch.hooks';
-import { likeHouse } from '../../helpers/apis';
+import { addHouseToFav, likeHouse } from '../../helpers/apis';
 
 function Homes({ isOpen, toggle}) {
     const [likedHouses, setLikedHouses] = useState([])
     const [currentPage, setCurrentPage] = useState(1);
+   
+    const isUser = localStorage.getItem('authToken')
+    const { isLoading, apiData, serverError } = useFetch()
+    const { isLoadingHouseData, apiHouseData, houseServerError, houseStatus } = useFetchHouses()
+    
+    const houseData = apiHouseData?.data.houses
+    console.log('HOUSE DTA', houseData)
     const itemPerPage = 6
     //Handle Pagination
     const paginateData = (data, currentPage, itemPerPage) => {
         const startIndex = (currentPage - 1) * itemPerPage;
         const endIndex = startIndex + itemPerPage;
-        return data.slice(startIndex, endIndex);
+        return data?.slice(startIndex, endIndex);
     }
 
-    const totalPages = Math.ceil(ViewHomesData.length / itemPerPage)
-    const displayData = paginateData(ViewHomesData, currentPage, itemPerPage)
+    const totalPages = Math.ceil(houseData?.length / itemPerPage)
+    const displayData = paginateData(houseData, currentPage, itemPerPage)
     
     const handlePageChange = (newPage) => {
         setCurrentPage(newPage)
     }
     // End of Pagination
 
-    const { isLoading, apiData, serverError } = useFetch()
-    const { isLoadingHouseData, apiHouseData, houseServerError, houseStatus } = useFetchHouses()
-
-    const isUser = localStorage.getItem('authToken')
+    //Like House
+    useEffect(() => {
+        Aos.init({ duration: 2000 });
+    
+        // Retrieve liked house IDs from local storage
+        const storedLikedHouses = localStorage.getItem('likedHouses');
+        if (storedLikedHouses) {
+            setLikedHouses(JSON.parse(storedLikedHouses));
+        }
+    }, []);
 
     const handleLike = async (houseId) => {
         const user = apiData?._id
@@ -59,6 +72,7 @@ function Homes({ isOpen, toggle}) {
                     updateLikedHouse.push(house);
                 }
                 setLikedHouses(updateLikedHouse)
+                localStorage.setItem('likedHouses', JSON.stringify(updateLikedHouse));
             } catch (error) {
                 toast.error('Failed to Like House')
             }
@@ -67,15 +81,20 @@ function Homes({ isOpen, toggle}) {
 
     const renderLikeIcon = (houseId) => {
         return likedHouses.includes(houseId) ? (
-          <FavoriteIcon className='icon icon-1' />
+          <FavoriteIcon className='icon icon-1 red' />
         ) : (
           <FavoriteBorderIcon className='icon icon-1' />
         );
     }
 
-    const handleAdd = (houseId) => {
+    const handleAdd = async (houseId) => {
+        const user = apiData?._id
+        const house = houseId
+
         if(!isUser){
             toast.error('Please Login First')
+        } else {
+            const addHouse = await addHouseToFav({ user, house })
         }
     }
 
@@ -101,14 +120,14 @@ function Homes({ isOpen, toggle}) {
             <h1>Our Homes</h1>
             <div className="content">
                     {
-                        displayData.map((item) => (
+                        displayData?.map((item) => (
                             <div data-aos='zoom-in' className="card" key={item._id}>
                                 <div className="img">
                                     <div className="overlay">
                                         <div className="top">
                                             <div className="actions">
                                                 <div className="fav" onClick={() => handleLike(item._id)}>
-                                                    <div className="small-1">Like</div>
+                                                    <div className="small-1">{ likedHouses.includes(item._id) ? 'Liked' : 'Like'}</div>
                                                     {renderLikeIcon(item._id)}
                                                 </div>
                                                 <div className="add" onClick={() => handleAdd(item._id)}>
@@ -121,7 +140,7 @@ function Homes({ isOpen, toggle}) {
 
                                     <img src={item.image} alt='home'/>
                                 </div>
-                                <p>{item.desc}</p>
+                                <p>{item.title}</p>
                                 <Link to={`/home/${item._id}`} className='btn link' >
                                     View Details <ArrowForwardIcon className='icon' />
                                 </Link>

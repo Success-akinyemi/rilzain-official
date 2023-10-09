@@ -2,8 +2,8 @@ import axios from 'axios'
 import jwt_decode from 'jwt-decode'
 import { toast } from 'react-hot-toast'
 
-//axios.defaults.baseURL = 'http://localhost:9000'
-axios.defaults.baseURL = 'https://rilzain-solutions-api.onrender.com'
+axios.defaults.baseURL = 'http://localhost:9000'
+//axios.defaults.baseURL = 'https://rilzain-solutions-api.onrender.com'
 
 
 /**Get user from token */
@@ -21,7 +21,7 @@ export async function getUser(){
       }
 }
 
-export async function registerUser({ username, email, password, phoneNumber, toggle }){
+export async function registerUser({ username, email, password, phoneNumber }){
     try {
         const { data }  = await axios.post('/api/register', { username, email, password, phoneNumber, toggle })
         //console.log(username, email, password)
@@ -29,7 +29,7 @@ export async function registerUser({ username, email, password, phoneNumber, tog
         console.log(data.token)
         toast.success(`Welcome ${username}`)
 
-        toggle()
+        
         return null
     
     } catch (error) {
@@ -40,7 +40,7 @@ export async function registerUser({ username, email, password, phoneNumber, tog
 }
 
 /**LOGIN USER */
-export async function loginUser({ emailOrphoneNumber, password, toggle }){
+export async function loginUser({ emailOrphoneNumber, password }){
     try {
         const { data } = await axios.post('/api/login', { emailOrphoneNumber, password })
         //console.log( email, password)
@@ -48,7 +48,7 @@ export async function loginUser({ emailOrphoneNumber, password, toggle }){
         console.log('STATUS>>', data.success)
         console.log('User Logged in', data.token)
 
-        toggle()
+        
     
     } catch (error) {
         const errorMsg = error.response.data.error
@@ -60,6 +60,7 @@ export async function loginUser({ emailOrphoneNumber, password, toggle }){
 /**Like House */
 export async function likeHouse({ house, user }){
     try {
+        console.log('LIKE DATA', user, house)
         const token = await localStorage.getItem('authToken')
         const response = await axios.post('/api/house/like', { house, user }, {headers: {Authorization: `Bearer ${token}`}})
     
@@ -74,11 +75,12 @@ export async function likeHouse({ house, user }){
 }
 
 /**Upload New House */
-export async function uploadHouse({ title, price, desc, address, location, houseImage, imageArray }){
+export async function uploadHouse({ title, price, desc, address, location, houseImageUrl, imageArray }){
     try {
         const token = await localStorage.getItem('authToken')
-        const response = await axios.post('/api/house/newHouse', { title, price, desc, address, location, houseImage, imageArray }, {headers: {Authorization: `Bearer ${token}`}})
-        //console.log(title, price, desc, address, location, houseImage, imageArray)
+        //console.log(token)
+        console.log('FROM CLIENT', title, price, desc, address, location, houseImageUrl, imageArray)
+        const response = await axios.post('/api/house/newHouse', { title, price, desc, address, location, houseImageUrl, imageArray }, {headers: {Authorization: `Bearer ${token}`}})
         console.log(response.data.statusMsg)
         if(response.data.statusMsg === 'success'){
             return response.data.statusMsg
@@ -87,5 +89,19 @@ export async function uploadHouse({ title, price, desc, address, location, house
         }
     } catch (error) {
         throw new Error('House Upload Failed');
+    }
+}
+
+/**ADD HOUSE TO FAVORITES */
+export async function addHouseToFav({ user, house }){
+    try {
+        const token = await localStorage.getItem('authToken')
+        const req  = await axios.post('/api/house/addToFav', {user, house}, {headers: {Authorization: `Bearer ${token}`}})
+        
+        if(req.data.statusMsg === 'success'){
+            toast.success('House Added to Favourites')
+        }
+    } catch (error) {
+        throw new Error('House Saved Failed');
     }
 }

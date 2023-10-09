@@ -150,6 +150,10 @@
     transition: .3 ease-in-out;
 }
 
+.homes .home-container .overlay .icon-1.red{
+    color: var(--like-color);
+}
+
 .homes .home-container .overlay .small-1,
 .homes .home-container .overlay .small-2{
     position: absolute;
