@@ -19,7 +19,8 @@ import { addHouseToFav, likeHouse } from '../../helpers/apis';
 function Homes({ isOpen, toggle}) {
     const [likedHouses, setLikedHouses] = useState([])
     const [currentPage, setCurrentPage] = useState(1);
-   
+    const [searchQuery, setSearchQuery] = useState('')
+
     const isUser = localStorage.getItem('authToken')
     const { isLoading, apiData, serverError } = useFetch()
     const { isLoadingHouseData, apiHouseData, houseServerError, houseStatus } = useFetchHouses()
@@ -87,6 +88,7 @@ function Homes({ isOpen, toggle}) {
         );
     }
 
+    //Handle Add functionality
     const handleAdd = async (houseId) => {
         const user = apiData?._id
         const house = houseId
@@ -98,6 +100,21 @@ function Homes({ isOpen, toggle}) {
         }
     }
 
+
+    // Handle Serach Functionality
+    const handleSearchInputChange = (e) => {
+        setSearchQuery(e.target.value)
+    }
+    const filteredData = houseData?.filter((item) => {
+        const { location, address } = item;
+        return(
+            location.toLowerCase().includes(searchQuery.toLowerCase()) ||
+            address.toLowerCase().includes(searchQuery.toLowerCase())
+        )
+    })
+
+    const dataToDisplay = searchQuery ? filteredData : displayData
+    
     useEffect(() => {
         Aos.init({ duration: 2000 })
     }, [])
@@ -109,7 +126,12 @@ function Homes({ isOpen, toggle}) {
         <div className="home-container">
             <div className="search">
                 <div className="search-box">
-                    <input type="text" placeholder='Enter location to search for Homes'/>
+                    <input 
+                        type="text" 
+                        placeholder='Enter location to search for Homes'
+                        value={searchQuery}
+                        onChange={handleSearchInputChange}
+                    />
                     <div className="search-icon">
                         <SearchIcon className='icon' />
                     </div>
@@ -120,7 +142,7 @@ function Homes({ isOpen, toggle}) {
             <h1>Our Homes</h1>
             <div className="content">
                     {
-                        displayData?.map((item) => (
+                        dataToDisplay?.map((item) => (
                             <div data-aos='zoom-in' className="card" key={item._id}>
                                 <div className="img">
                                     <div className="overlay">

@@ -19,7 +19,7 @@ function Home({ toggle, isOpen }) {
     console.log('ID', pathName)
     //const { _id, address, desc, image, imageArray, location, price, title, } = homeData
     const { isLoadingHouseData, apiHouseData, houseServerError, houseStatus } = useFetchHouses(pathName)
-    const { _id, address, desc, image, imageArray, location, price, title, } = apiHouseData || {}
+    const { _id, address, desc, image, imageArray, location, price, title, } = apiHouseData?.data?.house || {}
 
 
     const length = imageArray?.length

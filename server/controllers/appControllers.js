@@ -1,4 +1,5 @@
 import HouseModel from "../models/House.js";
+import SavedHouseModel from "../models/SavedHouse.js";
 
 export async function likeHouse(req, res){
     const { house, user } = req.body
@@ -48,12 +49,14 @@ export async function newHouse(req, res){
                             })
     } catch (error) {
         console.log('Failed to upload to DB>>', error)
-        res.status(400).json({error: 'Unable to save House', statusMsg: 'fail'})
+        res.status(500).json({error: 'Unable to save House', statusMsg: 'fail'})
     }
 }
 
 export async function getHouses(req, res){
+    
     try {
+        
         const houses =  await HouseModel.find()
 
         if(!houses || houses.length === 0){
@@ -73,6 +76,50 @@ export async function getHouses(req, res){
     }
 }
 
-export async function getHouseById(req, res){
+export async function getHouseById(req, res) {
+    const id = req.params.id;
+    try {
+        const house = await HouseModel.findById({ _id: id });
 
+        if (!house) {
+            return res.status(404).json({ error: 'No House Matching Found' });
+        }
+
+        res.status(200).json({ statusMsg: 'success', data: { house } });
+    } catch (error) {
+        console.error('Error Getting House', error);
+        res.status(500).json({ error: 'Could not get house with this id', statusMsg: 'fail' });
+    }
+}
+
+export async function favHouse(req, res) {
+    
+    const { user, house } = req.body;
+    try {
+        const newFavHouse = new SavedHouseModel({ userId: user, houseId: house });
+        const saveNewFavHouse = await newFavHouse.save();
+
+        console.log('HOUSE ADDED TO FAVOURITE');
+        res.status(201).json({ statusMsg: 'success', data: { saveNewFavHouse } });
+    } catch (error) {
+        console.error('Error adding House to favorite:', error);
+        res.status(500).json({ error: 'Could not add house to favorites', statusMsg: 'fail' });
+    }
+}
+
+export async function getMyHouse(req, res){
+    const id = req.params.id
+    console.log(id)
+    try {
+        const userHouse = await SavedHouseModel.find({ userId: id })
+
+        if(!userHouse){
+            res.status(404).json({ statusMsg: 'fail', error: 'No Favourites or Saved found'})
+        }
+
+        res.status(200).json({ statusMsg: 'success', data: {userHouse}})
+    } catch (error) {
+        console.log('Cannot get User Saved House', error)
+        res.status(500).json({ statusMsg: 'fail', error: 'Failed to get user House'})
+    }
 }
