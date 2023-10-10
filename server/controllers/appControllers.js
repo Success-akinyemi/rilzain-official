@@ -117,7 +117,11 @@ export async function getMyHouse(req, res){
             res.status(404).json({ statusMsg: 'fail', error: 'No Favourites or Saved found'})
         }
 
-        res.status(200).json({ statusMsg: 'success', data: {userHouse}})
+        const houseIds = userHouse.map((savedHouse) => savedHouse.houseId);
+
+        const saveHouseData = await HouseModel.find({ _id:  { $in: houseIds }})
+
+        res.status(200).json({ statusMsg: 'success', data: {saveHouseData}})
     } catch (error) {
         console.log('Cannot get User Saved House', error)
         res.status(500).json({ statusMsg: 'fail', error: 'Failed to get user House'})

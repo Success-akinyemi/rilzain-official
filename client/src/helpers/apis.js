@@ -23,8 +23,10 @@ export async function getUser(){
 
 export async function registerUser({ username, email, password, phoneNumber }){
     try {
-        const { data }  = await axios.post('/api/register', { username, email, password, phoneNumber, toggle })
-        //console.log(username, email, password)
+        //console.log('before send',username, email, password, phoneNumber)
+        const response  = await axios.post('/api/register', { username, email, password, phoneNumber })
+        //console.log('resPonse', response)
+        const { data } =response
         localStorage.setItem('authToken', data.token)
         console.log(data.token)
         toast.success(`Welcome ${username}`)

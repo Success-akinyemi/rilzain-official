@@ -22,6 +22,7 @@ function Signup({isActive, toggle}) {
 
   const handleRegister = async (e) => {
     e.preventDefault();
+    console.log('seen')
 
     if(password !== comfirmPassword){
       setPassword('')
@@ -41,8 +42,9 @@ function Signup({isActive, toggle}) {
     }
 
     try {
+      console.log(username, email, password)
       setIsLoading(true)
-      const errorMsg = await registerUser({ username, email, password, phoneNumber, toggle })
+      const errorMsg = await registerUser({ username, email, password, phoneNumber })
       //console.log(username, email, password)
       
       if(errorMsg){
@@ -55,7 +57,11 @@ function Signup({isActive, toggle}) {
         
       }
     } catch (error) {
-
+      console.log('ERROR REGISTEREING USER:', error)
+      setTimeout(() => {
+        setError('')
+      }, 3000)
+      return setError('An Error occurred. please try again.')
     } finally{
       setIsLoading(false)
     }
@@ -142,7 +148,7 @@ function Signup({isActive, toggle}) {
               isLoading ? 
               (<LoadingBtn btnText={'Creating User...'} />)
               :
-              (<input type="submit" className="input-submit" value='Submit' />)
+              (<input type="submit" className="input-submit" />)
             }
       </div>
 

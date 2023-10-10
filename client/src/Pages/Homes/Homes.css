@@ -186,6 +186,12 @@
     top: 0;
 }
 
+.homes .home-container .no-result{
+    margin-top: 20px;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
 .homes .home-container .pagination{
     display: flex;
     align-items: center;

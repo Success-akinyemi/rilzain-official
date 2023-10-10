@@ -2,8 +2,8 @@ import axios from 'axios'
 import { useEffect, useState } from 'react'
 import { getUser } from '../helpers/apis'
 
-//axios.defaults.baseURL = 'http://localhost:9000'
-axios.defaults.baseURL = 'https://rilzain-solutions-api.onrender.com'
+axios.defaults.baseURL = 'http://localhost:9000'
+//axios.defaults.baseURL = 'https://rilzain-solutions-api.onrender.com'
 
 
 /**Get User Details Hooks */
@@ -90,5 +90,6 @@ export async function useFetchMyHomes(){
         }
         fetchMyHomesData()
     }, [])
+    
     return myhomesData
 }
