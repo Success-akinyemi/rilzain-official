@@ -68,14 +68,13 @@ export function useFetchHouses(houseId = null){
     return houseData
 }
 
-export async function useFetchMyHomes(){
+export async function useFetchMyHomes(id){
     const [myhomesData, setMyHomesData] = useState({ isLoadingMyHomesData: true, myHomesApiData: null, myHomesStatus: null, myHomesServerError: null})
 
     useFetch(() => {
         const fetchMyHomesData = async () => {
             try {
-                const id = await getUser()
-                console.log('ID from myHouse', id)
+               console.log('ID from myHouse', id)
                 const { data, status } = await axios.get(`/api/house/getMyhouse/${id}`)
                 console.log('Saved House Data', data)
                 if(status === 200){

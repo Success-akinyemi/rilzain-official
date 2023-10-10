@@ -138,7 +138,7 @@ function Homes({ isOpen, toggle}) {
                 </div>
             </div>
 
-            <span className='title'>{ isUser ? `Welcome back ${apiData?.username}` : ''}</span>
+            <span className='title'>{ isUser ? `Welcome back ${apiData?.username ? apiData?.username : ''}` : ''}</span>
             <h1>Our Homes</h1>
             <div className="content">
                     {

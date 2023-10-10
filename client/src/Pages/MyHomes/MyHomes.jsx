@@ -5,7 +5,9 @@ import { useFetchMyHomes } from '../../hooks/fetch.hooks'
 import './MyHomes.css'
 
 function MyHomes({ toggle, isOpen }) {
-  const { isLoadingMyHomesData, myHomesApiData, myHomesStatus, myHomesServerError } = useFetchMyHomes();
+  const { isLoading, apiData, serverError } = useFetch()
+  const id = apiData?._id
+  const { isLoadingMyHomesData, myHomesApiData, myHomesStatus, myHomesServerError } = useFetchMyHomes(id);
   
   return (
     <div className='myHomes'>
