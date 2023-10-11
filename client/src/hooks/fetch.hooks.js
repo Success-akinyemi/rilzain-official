@@ -1,9 +1,9 @@
 import axios from 'axios'
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { getUser } from '../helpers/apis'
 
-//axios.defaults.baseURL = 'http://localhost:9000'
-axios.defaults.baseURL = 'https://rilzain-solutions-api.onrender.com'
+axios.defaults.baseURL = 'http://localhost:9000'
+//axios.defaults.baseURL = 'https://rilzain-solutions-api.onrender.com'
 
 
 /**Get User Details Hooks */
@@ -71,10 +71,9 @@ export function useFetchHouses(houseId = null){
 export async function useFetchMyHomes(){
     const [myhomesData, setMyHomesData] = useState({ isLoadingMyHomesData: true, myHomesApiData: null, myHomesStatus: null, myHomesServerError: null})
 
-    useEffect(() => {
-        const fetchMyHomesData = async () => {
+        const fetchMyHomesData = useCallback(async () => {
+            const {id} = await getUser();
             try {
-                const {id} = await getUser();
                console.log('ID from myHouse', id)
                 const { data, status } = await axios.get(`/api/house/getMyhouse/${id}`)
                 console.log('Saved House Data', data)
@@ -87,9 +86,10 @@ export async function useFetchMyHomes(){
             } catch (error) {
                 setMyHomesData({ isLoadingMyHomesData: false, myHomesApiData: null, myHomesStatus: null, myHomesServerError: error })   
             }
-        }
-        fetchMyHomesData()
-    }, [])
-    
+        }, [])
+
+        useEffect(() => {
+            fetchMyHomesData()
+        }, [fetchMyHomesData])
     return myhomesData
 }

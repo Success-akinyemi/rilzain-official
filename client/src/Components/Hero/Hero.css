@@ -137,7 +137,7 @@
 
 @media screen and (max-width: 450px ) {
     .hero .sliderButtons{
-        bottom: 10px;
+        bottom: 100px;
         right: 10px;
     }
     .hero .slide .slider .slideContent h1{

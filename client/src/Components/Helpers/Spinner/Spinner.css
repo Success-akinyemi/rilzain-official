@@ -18,3 +18,10 @@
         transform: rotate(360deg);
     }
 }
+
+@media screen and (max-width: 450px) {
+ .spinner{
+    width: 80px;
+    height: 80px;
+ }   
+}

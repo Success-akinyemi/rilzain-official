@@ -59,6 +59,8 @@ function Hero({ data, info }) {
                                         <div className="slideContent">
                                             <h1>{item.title}</h1>
                                             <p>NGN {item.price}</p>
+                                            {/** 
+                                             
                                             <Button
                                                 to={`/home/${item.id}`}
                                                 text={<div className='text'>
@@ -71,6 +73,7 @@ function Hero({ data, info }) {
                                                 big={false}
                                                 width={'180px'}
                                             />
+                                            */}
                                         </div>
 
                                     ) : 

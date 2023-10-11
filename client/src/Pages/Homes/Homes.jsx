@@ -14,8 +14,10 @@ import AddIcon from '@mui/icons-material/Add';
 import { toast, Toaster } from 'react-hot-toast'
 import SearchIcon from '@mui/icons-material/Search';
 import { useFetch, useFetchHouses } from '../../hooks/fetch.hooks';
-import { addHouseToFav, likeHouse } from '../../helpers/apis';
+import { addHouseToFav, deleteHouse, likeHouse } from '../../helpers/apis';
 import Spinner from '../../Components/Helpers/Spinner/Spinner';
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 function Homes({ isOpen, toggle}) {
     const [likedHouses, setLikedHouses] = useState([])
@@ -29,6 +31,7 @@ function Homes({ isOpen, toggle}) {
     const { isLoadingHouseData, apiHouseData, houseServerError, houseStatus } = useFetchHouses()
     const houseData = apiHouseData?.data.houses
     console.log('HOUSE DTA', houseData)
+
     const itemPerPage = 6
     //Handle Pagination
     const paginateData = (data, currentPage, itemPerPage) => {
@@ -102,6 +105,22 @@ function Homes({ isOpen, toggle}) {
         }
     }
 
+    const handleDelete = async (houseId) => {
+        const admin = apiData?.isAdmin
+        const confirmed = window.confirm('Are you sure you want to delete this house')
+        if(!admin){
+            toast.error('Not Allowed')
+        }
+        if(confirmed){
+            try {
+                const deletedHouse = await deleteHouse({ houseId, admin })
+            } catch (error) {
+                console.log(error)
+                toast.error('Could not delete House')
+            }
+        }
+    }
+
 /** 
     // Handle Serach Functionality
     const handleSearchInputChange = (e) => {
@@ -131,7 +150,7 @@ const handleSearchInputChange = (e) => {
     setSearchResultFound(filteredData.length > 0 || query === '');
 }
 
-  
+
     const dataToDisplay = searchResultFound ? filteredData : displayData
     
     useEffect(() => {
@@ -181,6 +200,23 @@ const handleSearchInputChange = (e) => {
                                                         <div className="small-2">Add to Favorites</div>
                                                         <AddIcon className='icon icon-2' />
                                                     </div>
+                                                    {
+                                                        apiData?.isAdmin ? (
+                                                            <>
+                                                                <div className="edit" onClick={() => handleEdit(item._id)}>
+                                                                    <div className="small-3">Edit</div>
+                                                                    <EditIcon className='icon icon-3' />
+                                                                </div>
+                                                                <div className="del" onClick={() => handleDelete(item._id)}>
+                                                                    <div className="small-4">Delete</div>
+                                                                    <DeleteIcon className='icon icon-4' />
+                                                                </div>
+                                                            </>
+
+                                                        ) : (
+                                                            ''
+                                                        )
+                                                    }
                                                 </div>
                                             </div>
                                         </div>

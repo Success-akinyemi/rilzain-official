@@ -76,8 +76,22 @@
 }
 
 @media screen and (max-width: 480px){
+    .newestHome .container{
+        padding-left: 2rem;
+        padding-right: 2rem;
+        width: 100%;
+    }
+
     .newestHome h1{
         font-size: 30px;
+        text-align: center;
     }
     
+}
+
+@media screen and (max-width: 400px){
+    .newestHome h1{
+        font-size: 20px;
+        text-align: center;
+    }
 }

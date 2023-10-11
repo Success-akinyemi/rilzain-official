@@ -69,7 +69,7 @@ function Navbar({toggle, enableScrollEffect}) {
             {
                 isUser ? (
                     <div className="profile">
-                        <div className="card">
+                        <div className="nav-card">
                             <span><Link to='/profile' className='link'>Profile</Link></span>
                             <span onClick={handleLogout}><Link className='link'>Logout</Link></span>
                         </div>

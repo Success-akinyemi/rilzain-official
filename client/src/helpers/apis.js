@@ -2,8 +2,8 @@ import axios from 'axios'
 import jwt_decode from 'jwt-decode'
 import { toast } from 'react-hot-toast'
 
-//axios.defaults.baseURL = 'http://localhost:9000'
-axios.defaults.baseURL = 'https://rilzain-solutions-api.onrender.com'
+axios.defaults.baseURL = 'http://localhost:9000'
+//axios.defaults.baseURL = 'https://rilzain-solutions-api.onrender.com'
 
 
 /**Get user from token */
@@ -81,7 +81,7 @@ export async function uploadHouse({ title, price, desc, address, location, house
     try {
         const token = await localStorage.getItem('authToken')
         //console.log(token)
-        console.log('FROM CLIENT', title, price, desc, address, location, houseImageUrl, imageArray)
+        //console.log('FROM CLIENT', title, price, desc, address, location, houseImageUrl, imageArray)
         const response = await axios.post('/api/house/newHouse', { title, price, desc, address, location, houseImageUrl, imageArray }, {headers: {Authorization: `Bearer ${token}`}})
         console.log(response.data.statusMsg)
         if(response.data.statusMsg === 'success'){
@@ -104,6 +104,25 @@ export async function addHouseToFav({ user, house }){
             toast.success('House Added to Favourites')
         }
     } catch (error) {
-        throw new Error('House Saved Failed');
+        toast.error('Failed to Add House To Favourites')
+        throw new Error('Failed To Add House To Favourites');
+    }
+}
+
+/**DELETE HOUSE */
+export async function deleteHouse({ houseId, admin }){
+    try {
+        const token = await localStorage.getItem('authToken')
+        const response = await axios.delete(`/api/house/delete?houseId=${houseId}&admin=${admin}`, {headers: {Authorization: `Bearer ${token}`}})
+        if(response.data.statusMsg === 'success'){
+            const msg = response.data.message
+            console.log(msg)
+            toast.success(msg)
+        }
+    } catch (error) {
+        console.log('error',error)
+        const err = error.response.data.error
+        toast.error(err)
+        throw new Error('Failed To Delete House')
     }
 }

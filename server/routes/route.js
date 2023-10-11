@@ -15,5 +15,6 @@ privateRouter.route('/house/getHouse').get(controllers.getHouses)
 privateRouter.route('/house/getHouse/:id').get(controllers.getHouseById)
 privateRouter.route('/house/getMyhouse/:id').get(controllers.getMyHouse) //add protect
 
-
+//DELETE ROUTES
+privateRouter.route('/house/delete').delete(controllers.deleteHouse)
 export default privateRouter

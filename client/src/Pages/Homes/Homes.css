@@ -138,13 +138,21 @@
 }
 
 .homes .home-container .overlay .actions .fav,
-.homes .home-container .overlay .actions .add{
+.homes .home-container .overlay .actions .add,
+.homes .home-container .overlay .actions .edit,
+.homes .home-container .overlay .actions .del{
     position: relative;
     transition: 0.2s ease-in-out;
 }
 
+.homes .home-container .overlay .actions .edit{
+    margin-top: 10px;
+}
+
 .homes .home-container .overlay .icon-1,
-.homes .home-container .overlay .icon-2{
+.homes .home-container .overlay .icon-2,
+.homes .home-container .overlay .icon-3,
+.homes .home-container .overlay .icon-4{    
     font-size: 40px;
     cursor: pointer;
     transition: .3 ease-in-out;
@@ -155,11 +163,13 @@
 }
 
 .homes .home-container .overlay .small-1,
-.homes .home-container .overlay .small-2{
+.homes .home-container .overlay .small-2,
+.homes .home-container .overlay .small-3,
+.homes .home-container .overlay .small-4{
     position: absolute;
     z-index: 10;
     bottom: -10px;
-    left: 6px;
+    left: 1px;
     color: var(--second-color);
     font-size: 15px;
     opacity: 0;
@@ -171,8 +181,11 @@
     bottom: -30px;
 }
 
+
 .homes .home-container .overlay .actions .fav:hover .small-1,
-.homes .home-container .overlay .actions .add:hover .small-2{
+.homes .home-container .overlay .actions .add:hover .small-2,
+.homes .home-container .overlay .actions .edit:hover .small-3,
+.homes .home-container .overlay .actions .del:hover .small-4{
     opacity: 1;
 }
 
@@ -232,5 +245,13 @@
 
     .homes .search .search-box{
         width: 90%;
+    }
+
+    .homes .home-container .content .card .img .overlay .top .actions{
+        flex-direction: row;
+    }
+
+    .homes .home-container .overlay .actions .edit{
+        margin-top: 0;
     }
 }

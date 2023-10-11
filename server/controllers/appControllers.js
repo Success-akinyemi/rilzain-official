@@ -27,7 +27,7 @@ export async function likeHouse(req, res){
 
 export async function newHouse(req, res){
     const { title, price, desc, address, location, houseImageUrl, imageArray } = req.body
-    console.log('FROM SERVER', title, price, desc, address, location, houseImageUrl, imageArray)
+    //console.log('FROM SERVER', title, price, desc, address, location, houseImageUrl, imageArray)
     try {
         const newHouse = new HouseModel({
             title,
@@ -125,5 +125,28 @@ export async function getMyHouse(req, res){
     } catch (error) {
         console.log('Cannot get User Saved House', error)
         res.status(500).json({ statusMsg: 'fail', error: 'Failed to get user House'})
+    }
+}
+
+export async function deleteHouse(req, res){
+    const { houseId, admin } = req.query
+    console.log(admin)
+    console.log(houseId)
+    console.log('RECIEVED')
+    try {
+        if(!admin){
+            return res.status(404).json({statusMsg: 'fail', error: 'NOT ALLOWED'})
+        } else{
+            const deletedHouse = await HouseModel.findByIdAndDelete(houseId)
+            
+            if(deletedHouse){
+                return res.status(200).json({ statusMsg: 'success', message: 'House Deleted successfully'})
+            } else{
+                return res.status(400).json({ statusMsg: 'fail', error: 'Failed to Delete House'})
+            }
+        }
+    } catch (error) {
+        console.log(error)
+        res.status(500).json({ statusMsg: 'fail', error: 'Failed to Delete House'})
     }
 }
