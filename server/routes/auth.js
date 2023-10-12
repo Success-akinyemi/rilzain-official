@@ -10,6 +10,8 @@ router.route('/forgotPassword').post(controller.forgotPassword)
 
 //GET ROUTES
 router.route('/user/:id').get(controller.getUser)
+router.route('/getUsers/:id').get(controller.getAllUser)
+
 
 //PUT ROUTES
 router.route('/resetPassword/:resetToken').put(controller.resetPassword)

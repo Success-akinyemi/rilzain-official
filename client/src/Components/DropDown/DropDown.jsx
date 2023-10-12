@@ -71,7 +71,7 @@ function DropDown({isOpen, toggle}) {
             {
                 isUser ? (
                     <div className="card">
-                    <span><Link to='/profile' className='link'><AccountCircleIcon className='icon' /> Profile</Link></span>
+                    <span onClick={toggle}><Link to='/profile' className='link'><AccountCircleIcon className='icon' /> Profile</Link></span>
                     <span onClick={handleLogout}><LogoutIcon className='icon' /> Logout</span>
                     </div>
                 ) : (

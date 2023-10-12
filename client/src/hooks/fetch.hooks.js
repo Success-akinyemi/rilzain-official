@@ -2,8 +2,8 @@ import axios from 'axios'
 import { useCallback, useEffect, useState } from 'react'
 import { getUser } from '../helpers/apis'
 
-//axios.defaults.baseURL = 'http://localhost:9000'
-axios.defaults.baseURL = 'https://rilzain-solutions-api.onrender.com'
+axios.defaults.baseURL = 'http://localhost:9000'
+//axios.defaults.baseURL = 'https://rilzain-solutions-api.onrender.com'
 
 
 /**Get User Details Hooks */
@@ -68,6 +68,7 @@ export function useFetchHouses(houseId = null){
     return houseData
 }
 
+/**Get User Saved House */
 export async function useFetchMyHomes(){
     const [myhomesData, setMyHomesData] = useState({ isLoadingMyHomesData: true, myHomesApiData: null, myHomesStatus: null, myHomesServerError: null})
 
@@ -93,3 +94,31 @@ export async function useFetchMyHomes(){
         }, [fetchMyHomesData])
     return myhomesData
 }
+
+/**Get All User */
+export async function useFetchAllUsers(query){
+    const [usersData, setUsersData] = useState({ isLoadingUsers: true, apiUsersData: null, usersStatus: null, usersServerError: null })
+
+    useEffect(() => {
+        const fetchUsersData = async () => {
+            try {
+                const { id } = !query ? await getUser() : ''
+
+                const { data, status } = !query ? await axios.get(`/api/getUsers/${id}`) : await axios.get(`/api/auth/${query}`)
+                console.log('ALL USERS', data)
+                
+                if(status === 200){
+                    setUsersData({ isLoadingUsers: false, apiUsersData: data, usersStatus: status, usersServerError: null})
+                } else{
+                    setUsersData({ isLoadingUsers: false, apiUsersData:null, usersStatus: status, usersServerError: null})
+                }
+            } catch (error) {
+                setUsersData({ isLoadingUsers: false, apiUsersData: null, usersStatus: null, usersServerError: error})
+            }
+        };
+        fetchUsersData()
+    }, [query])
+    
+    return usersData
+}
+

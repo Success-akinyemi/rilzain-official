@@ -1,6 +1,7 @@
 import axios from 'axios'
 import jwt_decode from 'jwt-decode'
 import { toast } from 'react-hot-toast'
+import { useNavigate } from 'react-router-dom'
 
 //axios.defaults.baseURL = 'http://localhost:9000'
 axios.defaults.baseURL = 'https://rilzain-solutions-api.onrender.com'
@@ -52,6 +53,41 @@ export async function loginUser({ emailOrphoneNumber, password }){
 
         
     
+    } catch (error) {
+        const errorMsg = error.response.data.error
+        console.log(errorMsg)
+        return errorMsg
+    }
+}
+
+/**FORGOT PASSWORD */
+export async function forgotPassword({ email }){
+    try {
+        const recover = await axios.post('/api/forgotPassword', { email })
+        const res = recover.data.data
+        console.log('RES', res)
+        return res
+    } catch (error) {
+        const errorMsg = error.response.data.error
+        console.log(errorMsg)
+        return errorMsg
+    }
+}
+
+/**RESET PASSWORD */
+export async function resetPassword({ resetToken, password }){
+    try {
+        const reset = await axios.put(`/api/resetPassword/${resetToken}`, { password })
+        const res = reset.data.data
+        const success = reset.data.success
+        console.log('RESET', res, success)
+        const navigate = useNavigate()
+
+        if(success === true){
+            toast.success(res)
+            navigate('/registration')
+        }
+
     } catch (error) {
         const errorMsg = error.response.data.error
         console.log(errorMsg)

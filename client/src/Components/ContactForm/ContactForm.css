@@ -76,3 +76,9 @@ textarea:valid ~ .c-label,
 textarea:focus ~ .c-label{
     border:  2px solid var(--bg-1);
 }
+
+@media screen and (max-width: 450px) {
+    form{
+        width: 95%;
+    }
+}

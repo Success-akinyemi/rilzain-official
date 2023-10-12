@@ -1,0 +1,58 @@
+.userProfile{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.userProfile h1{
+    width: 100%;
+}
+
+.userProfile form{
+    width: 50%;
+    border: 1px solid var(--bg-1);
+    border-radius: 20px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.userProfile form .input-group{
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+}
+
+.userProfile form .input-group label{
+    font-weight: 600;
+    font-size: 17px;
+    color: var(--bg-1);
+}
+
+.userProfile form .input-group input{
+    border: none;
+    border-bottom: 2px solid var(--bg-1);
+    color: var(--bg-1);
+    padding: 5px;
+}
+
+.userProfile form .input-group .submit{
+    border: none;
+    border-bottom: none;
+    background: var(--bg-1);
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    color: var(--second-color);
+    padding: 15px;
+    border-radius: 15px;
+    cursor: pointer;
+    transition: .3s ease-in;
+}
+
+.userProfile form .input-group .submit:hover{
+    transform: scale(0.98);
+}

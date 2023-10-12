@@ -1,0 +1,91 @@
+.profile-page{
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    position: relative;
+}
+
+.profile-container{
+    padding-top: 60px;
+    display: flex;
+    gap: 20px;
+    height: 100vh;
+}
+
+.profile .profile-container .sidebar{
+    flex: 2;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    background: var(--second-color);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
+    padding: 10px;
+}
+
+.profile .profile-container .sidebar .top{
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.profile .profile-container .sidebar .top .top-icon{
+    font-size: 60px;
+    color: var(--bg-1);
+}
+
+.profile .profile-container .sidebar .top h2{
+    font-size: 30px;
+}
+
+.profile .profile-container .sidebar .middle{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    margin-top: 40px;
+}
+
+.profile .profile-container .sidebar .middle span{
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+    background: var(--bg-1-opacity);
+    color: var(--second-color);
+    font-size: 17px;
+    width: 100%;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.profile .profile-container .sidebar .logout{
+    margin-top: auto;
+    width: 100%;
+    background: var(--bg-1);
+    color: var(--second-color);
+    font-family: 600;
+    cursor: pointer;
+    padding: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 20px;
+    transition: .3s ease-in;
+}
+
+.profile .profile-container .sidebar .logout:hover{
+    transform: scale(0.96);
+}
+
+.profile .profile-container .main{
+    flex: 7;
+    padding: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+}

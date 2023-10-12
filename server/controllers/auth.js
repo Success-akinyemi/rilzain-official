@@ -90,7 +90,7 @@ export async function forgotPassword (req, res, next){
 
         await user.save()
 
-        const resetUrl = `http://127.0.0.1:5173/passwordReset/${resetToken}`
+        const resetUrl = `${process.env.RESET_URL}/passwordReset/${resetToken}`
 
         try {
             // send mail
@@ -122,7 +122,7 @@ export async function forgotPassword (req, res, next){
                 text: emailTemplate
             })
 
-            res.status(200).json({success: true, data: `Email sent. url ${resetUrl}`})
+            res.status(200).json({success: true, data: `Email sent. Please Check your Email inbox`})
         } catch (error) {
             user.resetPasswordToken = undefined
             user.resetPasswordExpire = undefined
@@ -178,6 +178,29 @@ export async function getUser (req, res){
         }
         return res.status(200).json(user)
     } catch (error) {
+        console.log(error)
+        res.status(500).json({error: 'Could not get User'})   
+    }
+}
+
+export async function getAllUser (req, res){
+    const { id } = req.params
+
+    try {
+        const user = await UserModel.findById({ _id: id })
         
+        if(!user){
+            return res.status(404).send({ error: 'Cannot find users'});
+        }
+        
+        if(!user.isAdmin){
+            return res.status(403).json({ error: 'Permission denied.'})
+        }
+
+        const users = await UserModel.find();
+        return res.status(200).json({ statusMsg: 'success', data: users})
+    } catch (error) {
+        console.log(error)
+        res.status(500).json({error: 'Could not get Users'})   
     }
 }

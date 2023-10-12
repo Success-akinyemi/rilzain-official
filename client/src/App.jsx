@@ -12,6 +12,9 @@ import Contact from './Pages/Contact/Contact'
 import ContactSupportIcon from '@mui/icons-material/ContactSupport';
 import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 import LocalPhoneIcon from '@mui/icons-material/LocalPhone';
+import Profile from './Pages/Profile/Profile'
+import ForgotPassword from './Components/Content/ForgotPassword/ForgotPassword'
+import ResetPassword from './Components/Content/ResetPassword/ResetPassword'
 
 function App() {
   const [isOpen, setIsOpen] = useState(false)
@@ -49,9 +52,12 @@ function App() {
           <Route path='/home' element={<Homes toggle={toggle} isOpen={isOpen} />} />
           <Route path='/contact' element={<Contact toggle={toggle} isOpen={isOpen} />} />
           <Route path='/home/:id' element={<Home toggle={toggle} isOpen={isOpen} />} />
-          <Route path='myHomes' element={<AuthorizeUser><MyHomes toggle={toggle} isOpen={isOpen} /></AuthorizeUser>} />
+          <Route path='/myHomes' element={<AuthorizeUser><MyHomes toggle={toggle} isOpen={isOpen} /></AuthorizeUser>} />
+          <Route path='/profile' element={<AuthorizeUser><ValidToken><Profile toggle={toggle} isOpen={isOpen} /></ValidToken></AuthorizeUser>} />
           <Route path='/newHome' element={<AuthorizeUser><AdminUser><ValidToken><NewHome toggle={toggle} isOpen={isOpen} /></ValidToken></AdminUser></AuthorizeUser>} />
           <Route path='/registration' element={<Registration toggle={toggle} />} />
+          <Route path='/recovery' element={<ForgotPassword />} />
+          <Route path='/resetPassword/:resetToken' element={<ResetPassword />} />
         </Routes>
       </BrowserRouter>
     </div>

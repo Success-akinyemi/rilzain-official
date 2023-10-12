@@ -93,7 +93,7 @@ function Login({isActive, toggle}) {
             }
           </div>
           <div className="forgot">
-            <Link className='link' to='/forgotPassword'>Forgot Password</Link>
+            <Link className='link' to='/recovery'>Forgot Password</Link>
           </div>
         </div>
     </form>

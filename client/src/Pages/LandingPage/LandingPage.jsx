@@ -13,10 +13,14 @@ function LandingPage({isOpen, toggle}) {
   return (
     <div className='landingPage'>
         <Navbar toggle={toggle} enableScrollEffect={true} />
-        <Hero data={SliderData} info={true} />
         <DropDown isOpen={isOpen} toggle={toggle} />
-        <InfoSection {...InfoDataOne} />
-        <InfoSection {...InfoDatatwo} />
+        <Hero data={SliderData} info={true} />
+        <div className='info-1'>
+          <InfoSection {...InfoDataOne} />
+        </div>
+        <div className='info-2'>
+          <InfoSection {...InfoDatatwo} />
+        </div>
         <NewestHome />
         <Contact {...InfoDataThree} />
         <Footer />

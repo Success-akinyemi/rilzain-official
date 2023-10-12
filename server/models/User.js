@@ -25,6 +25,12 @@ export const UserSchema = new mongoose.Schema({
         type: Boolean,
         default: false
     },
+    address: {
+        type: String
+    },
+    state: {
+        type: String
+    },
     resetPasswordToken: String,
     resetPasswordExpire: Date
 },

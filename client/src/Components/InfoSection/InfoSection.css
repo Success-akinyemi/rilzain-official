@@ -73,4 +73,8 @@
     .infoSection .container .left{
         margin-bottom: 40px;
     }
+
+    .infoSection .container .right{
+        margin-top: 200px;
+    }
 }

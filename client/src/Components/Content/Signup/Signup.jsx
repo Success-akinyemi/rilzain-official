@@ -22,7 +22,7 @@ function Signup({isActive, toggle}) {
 
   const handleRegister = async (e) => {
     e.preventDefault();
-    console.log('seen')
+    
 
     if(password !== comfirmPassword){
       setPassword('')
