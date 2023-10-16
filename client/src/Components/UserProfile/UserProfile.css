@@ -56,3 +56,17 @@
 .userProfile form .input-group .submit:hover{
     transform: scale(0.98);
 }
+
+@media screen and (max-width: 768px) {
+    .userProfile form{
+        width: 90%;
+    }
+}
+
+@media screen and (max-width: 450px) {
+
+    .userProfile form{
+        width: 97%;
+        padding: 10px;
+    }
+}

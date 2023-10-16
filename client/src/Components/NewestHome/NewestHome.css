@@ -60,6 +60,14 @@
     justify-content: center;
 }
 
+.newestHome .server-error{
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 40px;
+    font-weight: 600;
+    color: var(--bg-1);
+}
+
 @media screen and (max-width: 768px){
     .newestHome .container{
         padding-left: 40px;

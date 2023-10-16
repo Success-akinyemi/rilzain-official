@@ -6,6 +6,7 @@ import { Toaster } from 'react-hot-toast';
 
 function UserProfile() {
     const { isLoading, apiData, serverError } = useFetch()
+    
     const [isLoadingUpdate, setIsLoadingUdate] = useState(false)
 
     const [userData, setUserData] = useState({

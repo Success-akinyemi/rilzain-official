@@ -23,7 +23,7 @@ export async function register (req, res, next){
 
         const existingEmail = await UserModel.findOne({ email });
         if(existingEmail){
-            return next(new ErrorResponse('Email Alreay exists. Please ue another email'))
+            return next(new ErrorResponse('Email Alreay exists. Please use another email'))
         }
 
         const existingPhoneNumber = await UserModel.findOne({ phoneNumber })

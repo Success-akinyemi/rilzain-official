@@ -10,14 +10,18 @@ axios.defaults.baseURL = 'https://rilzain-solutions-api.onrender.com'
 export function useFetch(query){
     const [data, setData] = useState({ isLoading: true, apiData: null, status: null, serverError: null})
 
-
     useEffect(() => {
         const fetchData =  async () => {
             try {
-                const { id } = !query ? await getUser() : '';
+                const { id } = !query ? await getUser() : await getUser();
+                
+                const config = {
+                    headers: {
+                      Authorization: `Bearer ${id}`,
+                    },
+                  };            
 
-
-                const { data, status} = !query ? await axios.get(`/api/user/${id}`) : await axios.get(`/api/auth/${query}`)
+                const { data, status} = !query ? await axios.get(`/api/user/${id}`, config) : await axios.get(`/api/getUsers/${id}`)
                 console.log('Data from Hooks>>>', data)
 
                 if(status === 200){
@@ -118,7 +122,7 @@ export async function useFetchAllUsers(query){
         };
         fetchUsersData()
     }, [query])
-    
+    console.log('USER DATA', usersData)
     return usersData
 }
 

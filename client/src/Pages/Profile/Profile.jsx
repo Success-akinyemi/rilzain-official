@@ -5,6 +5,8 @@ import Navbar from '../../Components/Navbar/Navbar'
 import './Profile.css'
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import UserProfile from '../../Components/UserProfile/UserProfile';
+import MenuIcon from '@mui/icons-material/Menu';
+import CloseIcon from '@mui/icons-material/Close';
 import Members from '../../Components/Members/Members';
 import { useState } from 'react';
 import { useFetch } from '../../hooks/fetch.hooks';
@@ -15,6 +17,7 @@ function Profile({toggle, isOpen}) {
     const savedMenuItem = localStorage.getItem('selectedMenuItem');
     return savedMenuItem || 'userProfile'
   })
+  const [menu, setMenu] = useState(false)
 
   const { isLoading, apiData, serverError } = useFetch()
 
@@ -41,12 +44,19 @@ function Profile({toggle, isOpen}) {
     localStorage.removeItem('authToken')
     navigate('/')
   }
+
+  const toggleMenu = () => {
+    setMenu(!menu)
+  }
   return (
     <div className='profile'>
         <Navbar toggle={toggle} />
         <DropDown toggle={toggle} isOpen={isOpen} />
         <div className="profile-container">
-            <div className="sidebar">
+            <div className={`sidebar ${menu ? 'show' : 'hide'}`}>
+              <div className="closeBtn" onClick={toggleMenu}>
+                <CloseIcon className='close-icon' />
+              </div>
               <div className="top">
                 <AccountCircleIcon className='top-icon' />
                 <h2>{apiData?.username ? apiData?.username : ''}</h2>
@@ -69,7 +79,12 @@ function Profile({toggle, isOpen}) {
             </div>
 
             <div className="main">
-              {renderSelectedComponent()}
+              <div className="menuBtn" onClick={toggleMenu}>
+                <MenuIcon className='menu-icon' />
+              </div>
+              <div className="m-container">
+                {renderSelectedComponent()}
+              </div>
             </div>
         </div>
         <Footer />

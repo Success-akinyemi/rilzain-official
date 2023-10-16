@@ -1,5 +1,8 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import './App.css'
+import Aos from 'aos'
+import 'aos/dist/aos.css'
+import { toast, Toaster } from 'react-hot-toast'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import LandingPage from './Pages/LandingPage/LandingPage'
 import Homes from './Pages/Homes/Homes'
@@ -15,10 +18,97 @@ import LocalPhoneIcon from '@mui/icons-material/LocalPhone';
 import Profile from './Pages/Profile/Profile'
 import ForgotPassword from './Components/Content/ForgotPassword/ForgotPassword'
 import ResetPassword from './Components/Content/ResetPassword/ResetPassword'
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import { useFetch } from './hooks/fetch.hooks'
+import { addHouseToFav, deleteHouse, likeHouse } from './helpers/apis'
+import EditHouse from './Pages/EditHouse/EditHouse'
 
 function App() {
   const [isOpen, setIsOpen] = useState(false)
   const [contact, setContact] = useState(false)
+  const [likedHouses, setLikedHouses] = useState([])
+
+  const { isLoading, apiData, serverError } = useFetch()
+
+
+      //Like House
+      useEffect(() => {
+        Aos.init({ duration: 2000 });
+    
+        // Retrieve liked house IDs from local storage
+        const storedLikedHouses = localStorage.getItem('likedHouses');
+        if (storedLikedHouses) {
+            setLikedHouses(JSON.parse(storedLikedHouses));
+        }
+    }, []);
+
+    const handleLike = async (houseId) => {
+        const user = apiData?._id
+        const house = houseId
+
+        if(!apiData){
+            toast.error('Please Login First')
+        }else{
+            try {
+                const likeAHouse = await likeHouse({ house, user})
+                
+                //Update like House based on response
+                const updateLikedHouse = [...likedHouses];
+                if(likedHouses.includes(house)){
+                    updateLikedHouse.splice(updateLikedHouse.indexOf(houseId), 1);
+                } else {
+                    // user liked house
+                    updateLikedHouse.push(house);
+                }
+                setLikedHouses(updateLikedHouse)
+                localStorage.setItem('likedHouses', JSON.stringify(updateLikedHouse));
+            } catch (error) {
+                toast.error('Failed to Like House')
+            }
+        }
+    }
+
+    const renderLikeIcon = (houseId) => {
+        return likedHouses.includes(houseId) ? (
+          <FavoriteIcon className='icon icon-1 red' />
+        ) : (
+          <FavoriteBorderIcon className='icon icon-1' />
+        );
+    }
+
+    const renderLikeText = (houseId) => {
+      return likedHouses.includes(houseId) ? 'Liked' : 'Like'
+    }
+
+        //Handle Add functionality
+        const handleAdd = async (houseId) => {
+          const user = apiData?._id
+          const house = houseId
+  
+          if(!apiData){
+              toast.error('Please Login First')
+          } else {
+              const addHouse = await addHouseToFav({ user, house })
+          }
+      }
+  
+      //Handle Delete functionality
+      const handleDelete = async (houseId) => {
+          const admin = apiData?.isAdmin
+          const confirmed = window.confirm('Are you sure you want to delete this house')
+          if(!admin){
+              toast.error('Not Allowed')
+          }
+          if(confirmed){
+              try {
+                  const deletedHouse = await deleteHouse({ houseId, admin })
+              } catch (error) {
+                  console.log(error)
+                  toast.error('Could not delete House')
+              }
+          }
+      }
 
   const toggle = () => {
     setIsOpen(!isOpen)
@@ -33,6 +123,7 @@ function App() {
   const isUser = localStorage.getItem('authToken')
   return (
     <div className='app'>
+      <Toaster position='top-center'></Toaster>
       <div className="layer">
         {
           contact ? (
@@ -49,12 +140,13 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path='/' element={<LandingPage toggle={toggle} isOpen={isOpen} />} isUser={isUser} />
-          <Route path='/home' element={<Homes toggle={toggle} isOpen={isOpen} />} />
+          <Route path='/home' element={<Homes toggle={toggle} isOpen={isOpen} renderLikeIcon={renderLikeIcon} handleLike={handleLike} renderLikeText={renderLikeText} handleAdd={handleAdd} handleDelete={handleDelete} />} />
           <Route path='/contact' element={<Contact toggle={toggle} isOpen={isOpen} />} />
-          <Route path='/home/:id' element={<Home toggle={toggle} isOpen={isOpen} />} />
-          <Route path='/myHomes' element={<AuthorizeUser><MyHomes toggle={toggle} isOpen={isOpen} /></AuthorizeUser>} />
+          <Route path='/home/:id' element={<Home toggle={toggle} isOpen={isOpen} renderLikeIcon={renderLikeIcon} handleLike={handleLike} renderLikeText={renderLikeText} handleAdd={handleAdd} handleDelete={handleDelete}/>} />
+          <Route path='/myHomes' element={<AuthorizeUser><MyHomes toggle={toggle} isOpen={isOpen} renderLikeIcon={renderLikeIcon} handleLike={handleLike} renderLikeText={renderLikeText} handleAdd={handleAdd} handleDelete={handleDelete}/></AuthorizeUser>} />
           <Route path='/profile' element={<AuthorizeUser><ValidToken><Profile toggle={toggle} isOpen={isOpen} /></ValidToken></AuthorizeUser>} />
           <Route path='/newHome' element={<AuthorizeUser><AdminUser><ValidToken><NewHome toggle={toggle} isOpen={isOpen} /></ValidToken></AdminUser></AuthorizeUser>} />
+          <Route path='/editHouse/:id' element={<AuthorizeUser><AdminUser><ValidToken><EditHouse toggle={toggle} isOpen={isOpen} /></ValidToken></AdminUser></AuthorizeUser>} />
           <Route path='/registration' element={<Registration toggle={toggle} />} />
           <Route path='/recovery' element={<ForgotPassword />} />
           <Route path='/resetPassword/:resetToken' element={<ResetPassword />} />

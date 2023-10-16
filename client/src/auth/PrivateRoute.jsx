@@ -3,7 +3,8 @@ import { useFetch } from "../hooks/fetch.hooks";
 
 export const AuthorizeUser = ({ children }) => {
     const authToken = localStorage.getItem('authToken')
-    if(!authToken){
+    const { apiData } = useFetch()
+    if(!authToken && !apiData){
         return <Navigate to={'/'} replace={true}></Navigate>
     }
 

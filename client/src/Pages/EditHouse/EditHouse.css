@@ -1,14 +1,10 @@
-.myHomes{
+.editHouse{
     width: 100%;
     display: flex;
     flex-direction: column;
     min-height: 100vh;
 }
 
-.myHomes .myHomes-container{
+.editHouse-container{
     padding-top: 70px;
-}
-
-.myHomes .myHomes-container h2{
-    color: var(--bg-1);
 }

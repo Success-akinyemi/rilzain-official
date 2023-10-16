@@ -8,19 +8,16 @@ import { Link } from 'react-router-dom';
 import Navbar from '../../Components/Navbar/Navbar';
 import DropDown from '../../Components/DropDown/DropDown';
 import Footer from '../../Components/Footer/Footer';
-import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
-import FavoriteIcon from '@mui/icons-material/Favorite';
 import AddIcon from '@mui/icons-material/Add';
 import { toast, Toaster } from 'react-hot-toast'
 import SearchIcon from '@mui/icons-material/Search';
 import { useFetch, useFetchHouses } from '../../hooks/fetch.hooks';
-import { addHouseToFav, deleteHouse, likeHouse } from '../../helpers/apis';
 import Spinner from '../../Components/Helpers/Spinner/Spinner';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 
-function Homes({ isOpen, toggle}) {
-    const [likedHouses, setLikedHouses] = useState([])
+function Homes({ isOpen, toggle, renderLikeIcon, handleLike, renderLikeText, handleAdd, handleDelete}) {
+    
     const [currentPage, setCurrentPage] = useState(1);
     const [searchQuery, setSearchQuery] = useState('')
     const [searchResultFound, setSearchResultFound] = useState(false)
@@ -48,78 +45,7 @@ function Homes({ isOpen, toggle}) {
     }
     // End of Pagination
 
-    //Like House
-    useEffect(() => {
-        Aos.init({ duration: 2000 });
-    
-        // Retrieve liked house IDs from local storage
-        const storedLikedHouses = localStorage.getItem('likedHouses');
-        if (storedLikedHouses) {
-            setLikedHouses(JSON.parse(storedLikedHouses));
-        }
-    }, []);
 
-    const handleLike = async (houseId) => {
-        const user = apiData?._id
-        const house = houseId
-
-        if(!isUser){
-            toast.error('Please Login First')
-        }else{
-            try {
-                const likeAHouse = await likeHouse({ house, user})
-                
-                //Update like House based on response
-                const updateLikedHouse = [...likedHouses];
-                if(likedHouses.includes(house)){
-                    updateLikedHouse.splice(updateLikedHouse.indexOf(houseId), 1);
-                } else {
-                    // user liked house
-                    updateLikedHouse.push(house);
-                }
-                setLikedHouses(updateLikedHouse)
-                localStorage.setItem('likedHouses', JSON.stringify(updateLikedHouse));
-            } catch (error) {
-                toast.error('Failed to Like House')
-            }
-        }
-    }
-
-    const renderLikeIcon = (houseId) => {
-        return likedHouses.includes(houseId) ? (
-          <FavoriteIcon className='icon icon-1 red' />
-        ) : (
-          <FavoriteBorderIcon className='icon icon-1' />
-        );
-    }
-
-    //Handle Add functionality
-    const handleAdd = async (houseId) => {
-        const user = apiData?._id
-        const house = houseId
-
-        if(!isUser){
-            toast.error('Please Login First')
-        } else {
-            const addHouse = await addHouseToFav({ user, house })
-        }
-    }
-
-    const handleDelete = async (houseId) => {
-        const admin = apiData?.isAdmin
-        const confirmed = window.confirm('Are you sure you want to delete this house')
-        if(!admin){
-            toast.error('Not Allowed')
-        }
-        if(confirmed){
-            try {
-                const deletedHouse = await deleteHouse({ houseId, admin })
-            } catch (error) {
-                console.log(error)
-                toast.error('Could not delete House')
-            }
-        }
-    }
 
 /** 
     // Handle Serach Functionality
@@ -179,7 +105,7 @@ const handleSearchInputChange = (e) => {
                 </div>
             </div>
 
-            <span className='title'>{ isUser ? `Welcome back ${apiData?.username ? apiData?.username : ''}` : ''}</span>
+            <span className='title'>{ apiData ? `Welcome back ${apiData?.username ? apiData?.username : ''}` : ''}</span>
             <h1>Our Homes</h1>
             {
                 isLoadingHouseData ? (
@@ -196,7 +122,7 @@ const handleSearchInputChange = (e) => {
                                             <div className="top">
                                                 <div className="actions">
                                                     <div className="fav" onClick={() => handleLike(item._id)}>
-                                                        <div className="small-1">{ likedHouses.includes(item._id) ? 'Liked' : 'Like'}</div>
+                                                        <div className="small-1">{renderLikeText(item._id)}</div>
                                                         {renderLikeIcon(item._id)}
                                                     </div>
                                                     <div className="add" onClick={() => handleAdd(item._id)}>
@@ -206,9 +132,11 @@ const handleSearchInputChange = (e) => {
                                                     {
                                                         apiData?.isAdmin ? (
                                                             <>
-                                                                <div className="edit" onClick={() => handleEdit(item._id)}>
+                                                                <div className="edit">
                                                                     <div className="small-3">Edit</div>
-                                                                    <EditIcon className='icon icon-3' />
+                                                                    <Link to={`/editHouse/${item._id}`} className='link'>
+                                                                        <EditIcon className='icon icon-3' />
+                                                                    </Link>
                                                                 </div>
                                                                 <div className="del" onClick={() => handleDelete(item._id)}>
                                                                     <div className="small-4">Delete</div>

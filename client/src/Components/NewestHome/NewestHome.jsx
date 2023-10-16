@@ -20,16 +20,22 @@ function NewestHome() {
         Aos.init({ duration: 2000 })
     }, [])
 
+
   return (
     <div className='newestHome'>
         <div className="container">
             <h1 data-aos='fade-right' className='title'> View Our Newest Homes</h1>
             <div className="content">
                 {
+                    houseServerError && (
+                        <div className='server-error'>Please Check Your Internet Connection</div>
+                    )
+                }
+                {
                     isLoadingHouseData ? (
                         <div style={{marginTop: '15px', marginBottom: '15px'}}>
                             <Spinner />
-                            <p>Getting Our Latest Homes</p>
+                            <p style={{textAlign: 'center'}}>Getting Our Latest Homes</p>
                         </div>
                     ) : (
                         newestHouse.map((item) => (

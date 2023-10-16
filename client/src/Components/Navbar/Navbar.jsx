@@ -46,8 +46,8 @@ function Navbar({toggle, enableScrollEffect}) {
         <div className="btn">
             <div className='btn-top'>
                 <Button
-                    to={`${ isUser ? '/myHomes' : '/registration'}`}
-                    text={`${ isUser ? 'My Homes' : 'Login' }`}
+                    to={`${ apiData ? '/myHomes' : '/registration'}`}
+                    text={`${ apiData ? 'My Homes' : 'Login' }`}
                     big={true}
                 />
 
@@ -67,7 +67,7 @@ function Navbar({toggle, enableScrollEffect}) {
             </div>
 
             {
-                isUser ? (
+                apiData ? (
                     <div className="profile">
                         <div className="nav-card">
                             <span><Link to='/profile' className='link'>Profile</Link></span>

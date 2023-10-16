@@ -6,18 +6,16 @@ import { useFetch, useFetchMyHomes } from '../../hooks/fetch.hooks'
 import './MyHomes.css'
 import Aos from 'aos'
 import 'aos/dist/aos.css'
-import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
-import FavoriteIcon from '@mui/icons-material/Favorite';
 import Spinner from '../../Components/Helpers/Spinner/Spinner'
 
-function MyHomes({ toggle, isOpen }) {
-  const [likedHouses, setLikedHouses] = useState([])
+function MyHomes({ toggle, isOpen, renderLikeIcon, handleLike, renderLikeText, handleAdd, handleDelete }) {
+
   const [currentPage, setCurrentPage] = useState(1);
 
   const { isLoading, apiData, serverError } = useFetch()
-  
+
   const { isLoadingMyHomesData, myHomesApiData, myHomesStatus, myHomesServerError} = useFetchMyHomes()
-  const houseData = myHomesApiData?.data?.saveHouseData
+  const houseData = myHomesApiData?.data.saveHouseData
 
   console.log('MY HOUSE DTA', myHomesApiData?.data?.saveHouseData)
 
@@ -37,39 +35,7 @@ function MyHomes({ toggle, isOpen }) {
   }
   // End of Pagination
 
-    const handleLike = async (houseId) => {
-        const user = apiData?._id
-        const house = houseId
 
-        if(!isUser){
-            toast.error('Please Login First')
-        }else{
-            try {
-                const likeAHouse = await likeHouse({ house, user})
-                
-                //Update like House based on response
-                const updateLikedHouse = [...likedHouses];
-                if(likedHouses.includes(house)){
-                    updateLikedHouse.splice(updateLikedHouse.indexOf(houseId), 1);
-                } else {
-                    // user liked house
-                    updateLikedHouse.push(house);
-                }
-                setLikedHouses(updateLikedHouse)
-                localStorage.setItem('likedHouses', JSON.stringify(updateLikedHouse));
-            } catch (error) {
-                toast.error('Failed to Like House')
-            }
-        }
-    }
-
-    const renderLikeIcon = (houseId) => {
-        return likedHouses.includes(houseId) ? (
-        <FavoriteIcon className='icon icon-1 red' />
-        ) : (
-        <FavoriteBorderIcon className='icon icon-1' />
-        );
-    }
   
   //AOS INIT
   useEffect(() => {
@@ -94,7 +60,7 @@ function MyHomes({ toggle, isOpen }) {
                                                 <div className="top">
                                                     <div className="actions">
                                                         <div className="fav" onClick={() => handleLike(item._id)}>
-                                                            <div className="small-1">{ likedHouses.includes(item._id) ? 'Liked' : 'Like'}</div>
+                                                            <div className="small-1">{ renderLikeText(item._id) }</div>
                                                             {renderLikeIcon(item._id)}
                                                         </div>
                                                         <div className="add" onClick={() => handleAdd(item._id)}>
