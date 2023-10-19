@@ -6,6 +6,8 @@ import Footer from '../../Components/Footer/Footer'
 import { useFetchHouses } from '../../hooks/fetch.hooks'
 import { useEffect, useState } from 'react'
 import Spinner from '../../Components/Helpers/Spinner/Spinner'
+import toast, { Toaster } from 'react-hot-toast'
+import { updateHouse } from '../../helpers/apis'
 
 function EditHouse({isOpen, toggle}) {
     const loc = useLocation()
@@ -53,9 +55,12 @@ function EditHouse({isOpen, toggle}) {
       console.log('updatedFields>>',updatedFields);
       try {
         setIsLoading(true)
+        const  id = _id
+        const response = await updateHouse({ id, ...updatedFields})
         
       } catch (error) {
-        
+        toast.error('Failed To Update House')
+        console.log(error)
       } finally{
         setIsLoading(false)
       }
@@ -63,6 +68,7 @@ function EditHouse({isOpen, toggle}) {
 
   return (
     <div className='editHouse'>
+      <Toaster position='top-center'></Toaster>
         <Navbar toggle={toggle} />
         <DropDown isOpen={isOpen} toggle={toggle} />
         <div className="editHouse-container">
@@ -116,7 +122,7 @@ function EditHouse({isOpen, toggle}) {
                 </div>
   
                 <div className="btn">
-                  <button>Update</button>
+                  <button disabled={isLoading}>{ isLoading ? 'Updating' : 'Update' }</button>
                 </div>
               </form>
               )

@@ -152,8 +152,8 @@ export async function deleteHouse(req, res){
 }
 
 export async function updateHouse(req, res){
-    const id = req.params.id
-    const {title, price, desc, address, location, houseImageUrl, imageArray} = req.body
+    //const id = req.params.id
+    const {id, title, price, desc, address, location, houseImageUrl, imageArray} = req.body
     console.log(id)
     try {
         const existingHouse = await HouseModel.findById({ _id: id})

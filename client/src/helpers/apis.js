@@ -168,12 +168,13 @@ export async function deleteHouse({ houseId, admin }){
 export async function updateHouse({id, title, price, desc, address, location, houseImageUrl, imageArray}){
     try {
         const token = await localStorage.getItem('authToken')
-
-        const response = await axios.put(`/api/house/update/${id}`, {id, title, price, desc, address, location, houseImageUrl, imageArray}, {headers: {Authorization: `Bearer ${token}`}})
+        console.log('ID', id)
+        const response = await axios.put(`/api/house/update`, {id, title, price, desc, address, location, houseImageUrl, imageArray}, {headers: {Authorization: `Bearer ${token}`}})
         if(response.data.statusMsg === 'success'){
             toast.success('House Updated')
             return response.data.statusMsg;
         } else{
+            toast.error('Failed to Update House')
             return response.data.data
         }
     } catch (error) {
