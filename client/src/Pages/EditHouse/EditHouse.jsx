@@ -18,6 +18,54 @@ function EditHouse({isOpen, toggle}) {
         <DropDown isOpen={isOpen} toggle={toggle} />
         <div className="editHouse-container">
             <h2>EditHouse</h2>
+            <form>
+              <div className="input-body">
+                <label htmlFor="">Tilte:</label>
+                <input type="text"  />
+              </div>
+
+              <div className="input-body">
+                <label htmlFor="">Description:</label>
+                <input type="text"  />
+              </div>
+
+              <div className="input-body">
+                <label htmlFor="">Address:</label>
+                <input type="text"  />
+              </div>
+
+              <div className="input-body">
+                <label htmlFor="">Location:</label>
+                <input type="text"  />
+              </div>
+
+              <div className="input-body">
+                <label htmlFor="">Price:</label>
+                <input type="text"  />
+              </div>
+
+              <div className="imgcard">
+                <label htmlFor="">Current House Image:</label>
+                <img src={image} alt='house' />
+              </div>
+
+              <div className="imgArrayCard">
+                <label htmlFor="">Current Display Images:</label>
+                <div className="images">
+                  {Array.isArray(imageArray) ? (
+                    imageArray.map((item, idx) => (
+                    <img src={item} alt='house-image' key={idx}/>
+                    ))
+                  ) : (
+                  <p>No images available</p>
+                  )}
+                </div>
+              </div>
+
+              <div className="btn">
+                <button>Update</button>
+              </div>
+            </form>
         </div>
         <Footer />
     </div>

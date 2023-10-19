@@ -22,6 +22,7 @@ export async function getUser(){
       }
 }
 
+/**REGISTER USER */
 export async function registerUser({ username, email, password, phoneNumber }){
     try {
         //console.log('before send',username, email, password, phoneNumber)

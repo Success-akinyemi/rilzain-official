@@ -7,4 +7,100 @@
 
 .editHouse-container{
     padding-top: 70px;
+    display: flex;
+    flex-direction: column;
+    padding-left: 40px;
+    padding-right: 40px;
+    justify-content: center;
+    align-items: center;
+}
+
+.editHouse .editHouse-container h2{
+    width: 100%;
+    margin-bottom: 30px;
+}
+
+.editHouse .editHouse-container form{
+    width: 60%;
+    padding: 20px;
+    border: 2px solid var(--bg-1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: 30px;
+    margin-bottom: 50px;
+}
+
+.editHouse .editHouse-container form .input-body{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-top: 20px;
+}
+
+.editHouse .editHouse-container form .input-body label,
+.editHouse .editHouse-container form .imgcard label,
+.editHouse .editHouse-container form .imgArrayCard label{
+    width: 100%;
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--bg-1);
+}
+
+.editHouse .editHouse-container form .input-body input{
+    border-bottom: 2px solid var(--bg-1);
+}
+
+.editHouse .editHouse-container form .imgcard{
+    width: 100%;
+    margin-top: 20px;
+}
+
+.editHouse .editHouse-container form .imgcard img{
+    width: 100%;
+}
+
+.editHouse .editHouse-container form .imgArrayCard{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.editHouse .editHouse-container form .imgArrayCard .images{
+    display: flex;
+    width: 100%;
+    gap: 10px;
+    flex-wrap: wrap;
+
+}
+
+.editHouse .editHouse-container form .imgArrayCard .images img{
+    width: 50%;
+}
+
+.editHouse .editHouse-container form .btn{
+    margin-top: 20px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+}
+
+@media screen and (max-width: 768px) {
+    .editHouse .editHouse-container form{
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 450px) {
+    .editHouse-container{
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+    
+    .editHouse .editHouse-container form{
+        width: 100%;
+    }
 }
