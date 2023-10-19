@@ -50,6 +50,7 @@
 
 .editHouse .editHouse-container form .input-body input{
     border-bottom: 2px solid var(--bg-1);
+    color: var(--bg-1);
 }
 
 .editHouse .editHouse-container form .imgcard{
