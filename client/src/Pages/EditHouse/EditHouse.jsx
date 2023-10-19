@@ -4,7 +4,7 @@ import Navbar from '../../Components/Navbar/Navbar'
 import DropDown from '../../Components/DropDown/DropDown'
 import Footer from '../../Components/Footer/Footer'
 import { useFetchHouses } from '../../hooks/fetch.hooks'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Spinner from '../../Components/Helpers/Spinner/Spinner'
 
 function EditHouse({isOpen, toggle}) {
@@ -15,13 +15,21 @@ function EditHouse({isOpen, toggle}) {
     const { _id, address, desc, image, imageArray, location, price, title, } = apiHouseData?.data?.house || {}
 
 
-    const [formData, setFormData] = useState({
-      title: title || '',
-      desc: desc || '',
-      address: address || '',
-      location: location || '',
-      price: price || '',
-    });
+    const [formData, setFormData] = useState({})
+    const [isLoading, setIsLoading] = useState(false)
+    
+    useEffect(() => {
+      if (apiHouseData && apiHouseData.data && apiHouseData.data.house) {
+        const houseData = apiHouseData.data.house;
+        setFormData({
+          title: houseData.title || '',
+          desc: houseData.desc || '',
+          address: houseData.address || '',
+          location: houseData.location || '',
+          price: houseData.price || '',
+        });
+      }
+    }, [apiHouseData]);
     
   
     const handleInputChange = (e) => {
@@ -32,7 +40,7 @@ function EditHouse({isOpen, toggle}) {
       });
     };
   
-    const handleFormSubmit = (e) => {
+    const handleFormSubmit = async (e) => {
       e.preventDefault();
       // Create an object containing only the fields that have changed
       const updatedFields = {};
@@ -43,6 +51,14 @@ function EditHouse({isOpen, toggle}) {
       }
       // Send updatedFields to your API for updating the house
       console.log('updatedFields>>',updatedFields);
+      try {
+        setIsLoading(true)
+        
+      } catch (error) {
+        
+      } finally{
+        setIsLoading(false)
+      }
     };
 
   return (

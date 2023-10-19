@@ -150,3 +150,32 @@ export async function deleteHouse(req, res){
         res.status(500).json({ statusMsg: 'fail', error: 'Failed to Delete House'})
     }
 }
+
+export async function updateHouse(req, res){
+    const id = req.params.id
+    const {title, price, desc, address, location, houseImageUrl, imageArray} = req.body
+    console.log(id)
+    try {
+        const existingHouse = await HouseModel.findById({ _id: id})
+
+        if(!existingHouse){
+            return res.status(404).json({ statusMsg: 'failed', data: 'House Not Found'})
+        }
+
+        if(title) existingHouse.title = title
+        if(price) existingHouse.price = price
+        if(desc) existingHouse.desc = desc
+        if(address) existingHouse.address = address
+        if(location) existingHouse.location = location
+        if(houseImageUrl) existingHouse.houseImageUrl = houseImageUrl
+        if(imageArray) existingHouse.imageArray = imageArray
+
+        //save the house
+        await existingHouse.save()
+        console.log('HOUSE UPDATED')
+        res.status(200).json({ statusMsg: 'success', data: 'House updated successfully'})
+    } catch (error) {
+        console.log('ERROR UPDATING HOUSE', error)
+        res.status(500).json({ statusMsg: 'failed', data: 'ERROR UPDATING HOUSE' })
+    }
+}
