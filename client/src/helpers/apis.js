@@ -182,3 +182,23 @@ export async function updateHouse({id, title, price, desc, address, location, ho
         throw new Error('Failed To Update House')
     }
 }
+
+/**MAKE USER ADMIN */
+export async function makeAdmin({id}){
+    try {
+        const token = await localStorage.getItem('authToken')
+        console.log('ID', id)
+        const response = await axios.post('/api/user/makeAdmin', {id}, {headers: {Authorization: `Bearer ${token}`}})
+        
+        if(response.data.statusMsg === 'success'){
+            toast.success('User Status Updated')
+            return response.data.data
+        }else{
+            toast.error(response.data.data)
+            return response.data.data
+        }
+    } catch (error) {
+        toast.error('Failed To Update House')
+        throw new Error('Failed To Update House')   
+    }
+}

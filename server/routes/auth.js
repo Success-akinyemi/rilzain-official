@@ -1,5 +1,6 @@
 import { Router } from "express"
 import * as controller from '../controllers/auth.js'
+import Protect from "../middleware/auth.js"
 
 const router = Router()
 
@@ -7,6 +8,7 @@ const router = Router()
 router.route('/register').post(controller.register)
 router.route('/login').post(controller.login)
 router.route('/forgotPassword').post(controller.forgotPassword)
+router.route('user/makeAdmin').post(Protect, controller.makeAdmin)
 
 //GET ROUTES
 router.route('/user/:id').get(controller.getUser)
