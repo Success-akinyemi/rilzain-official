@@ -57,9 +57,9 @@ function Hero({ data, info }) {
                                 {
                                     info ? (
                                         <div className="slideContent">
-                                            <h1>{item.title}</h1>
-                                            <p>NGN {item.price}</p>
                                             {/** 
+                                             <h1>{item.title}</h1>
+                                             <p>NGN {item.price}</p>
                                              
                                             <Button
                                                 to={`/home/${item.id}`}
