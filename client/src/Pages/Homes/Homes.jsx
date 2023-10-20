@@ -82,9 +82,7 @@ const handleSearchInputChange = (e) => {
     useEffect(() => {
         Aos.init({ duration: 2000 })
     }, [])
-    if(houseServerError){
-        return <h1>Please Check Your NetWork Connection</h1>
-    }
+
   return (
     <div className='homes'>
         <Toaster position='top-center'></Toaster>
