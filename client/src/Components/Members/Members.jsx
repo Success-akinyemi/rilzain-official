@@ -67,7 +67,7 @@ function Members() {
                 <p>Phone Number: {selectedUser.phoneNumber}</p>
                 <p>Is Admin: {selectedUser.isAdmin ? 'Yes' : 'No'}</p>
                 <button
-                  onClick={handleMakeAdmin(selectedUser._id)}
+                  onClick={() => handleMakeAdmin(selectedUser._id)}
                 >
                   Make Admin
                 </button>

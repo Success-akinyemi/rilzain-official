@@ -192,6 +192,7 @@ export async function makeAdmin({id}){
         
         if(response.data.statusMsg === 'success'){
             toast.success('User Status Updated')
+            window.location.reload()
             return response.data.data
         }else{
             toast.error(response.data.data)

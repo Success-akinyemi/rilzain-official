@@ -207,7 +207,7 @@ export async function getAllUser (req, res){
 
 export async function makeAdmin (req, res){
     const { id } = req.body
-
+    console.log('ID', id)
     try {
         const user = await UserModel.findById({ _id: id})
 
@@ -216,7 +216,7 @@ export async function makeAdmin (req, res){
         }
 
         user.isAdmin = true
-
+        console.log('USER UPDATED')
         await user.save()
 
         res.status(200).json({ statusMsg: 'success', data: 'User Status Updated'})
