@@ -7,8 +7,8 @@ function ForgotPassword() {
   const [email, setEmail] = useState('')
   const [error, setError] = useState('')
   const [success, setSuccess] = useState('')
-  const [isLoading, setIsLoading] = useState(false
-    )
+  const [isLoading, setIsLoading] = useState(false)
+  const [emailSent, setEmailSent] = useState('')
 
   const handleRecovery = async (e) => {
     e.preventDefault()
@@ -22,6 +22,7 @@ function ForgotPassword() {
         setTimeout(() => {
           setSuccess('')
         }, 5000);
+        setEmailSent('EMAIL SENT CHECK YOUR INBOX')
       }
     } catch (error) {
       setError(error)
@@ -29,7 +30,7 @@ function ForgotPassword() {
         setError('')
       }, 5000);
     } finally{
-
+      setIsLoading(false)
     }
   }
   return (
@@ -58,6 +59,7 @@ function ForgotPassword() {
                   :
                   (<input type="submit" className="input-submit" value='Submit' />)
                 }
+              {emailSent && <p className='success'>{emailSent}</p>}
               </div>
 
             </div>

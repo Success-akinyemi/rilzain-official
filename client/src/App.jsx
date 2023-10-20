@@ -149,7 +149,7 @@ function App() {
           <Route path='/editHouse/:id' element={<AuthorizeUser><AdminUser><ValidToken><EditHouse toggle={toggle} isOpen={isOpen} /></ValidToken></AdminUser></AuthorizeUser>} />
           <Route path='/registration' element={<Registration toggle={toggle} />} />
           <Route path='/recovery' element={<ForgotPassword />} />
-          <Route path='/resetPassword/:resetToken' element={<ResetPassword />} />
+          <Route path='/passwordReset/:resetToken' element={<ResetPassword />} />
         </Routes>
       </BrowserRouter>
     </div>

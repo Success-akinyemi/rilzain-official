@@ -26,7 +26,7 @@ function Profile({toggle, isOpen}) {
       case 'userProfile':
         return <UserProfile />;
       case 'members':
-        return <Members />
+        return apiData?.isAdmin ? <Members /> : <UserProfile />;
 
 
       default: 
