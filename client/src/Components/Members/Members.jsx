@@ -17,6 +17,7 @@ function Members() {
 
   const [showPopup, setShowPopup] = useState(false);
   const [selectedUser, setSelectedUser] = useState(null);
+  const [searchQuery, setSearchQuery] = useState('');
 
   const togglePopup = (user) => {
     setSelectedUser(user);
@@ -29,18 +30,31 @@ function Members() {
       const response = await makeAdmin({id})
     }
   }
+
+  //filter user
+  const filteredUsers = users?.filter((user) => user.email.includes(searchQuery));
+
   return (
     <div className='members'>
       <Toaster position='top-center'></Toaster>
         <h2>All Users</h2>
         <p>Total: {users?.length}</p>
 
+        <div className="search">
+          <input
+            type="text"
+            placeholder="Search by email"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+          />
+        </div>
+
         <div className="users">
           {
             isLoading ? (
               <Spinner />
             ) : (
-              users?.map((item) => (
+              filteredUsers?.map((item) => (
                 <div className="user" key={item?._id}>
                 <span>{item?.username}</span>
                 <span>{item?.email}</span>

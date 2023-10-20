@@ -4,7 +4,7 @@
 }
 
 /* USERR MODDAL */
-/* Add this CSS to your existing CSS file */
+
 .popup {
     position: fixed;
     top: 0;
@@ -65,6 +65,17 @@
 
 /*END OF USER MODAL*/
 
+.members .search{
+  width: 100%;
+  margin-bottom: 20px;
+} 
+
+.members .search input{
+  width: 100%;
+  border-bottom: 2px solid var(--bg-1);
+  color: var(--bg-1);
+}
+
 
 .members h2{
     color: var(--bg-1);
@@ -96,6 +107,10 @@
 }
 
 @media screen and (max-width: 768px){
+    .members .users{
+      margin-bottom: 30px;
+    }
+
     .members .users .user{
         justify-content: space-between;
     }
@@ -109,6 +124,10 @@
 }
 
 @media screen and (max-width: 450px){
+    .members .users{
+      margin-bottom: 30px;
+    }
+
     .members .users .user{
         justify-content: space-between;
     }
