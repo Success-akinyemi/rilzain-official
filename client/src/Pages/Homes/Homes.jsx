@@ -46,21 +46,6 @@ function Homes({ isOpen, toggle, renderLikeIcon, handleLike, renderLikeText, han
     // End of Pagination
 
 
-
-/** 
-    // Handle Serach Functionality
-    const handleSearchInputChange = (e) => {
-        setSearchQuery(e.target.value)
-    }
-    const filteredData = houseData?.filter((item) => {
-        const { location, address } = item;
-        return(
-            location.toLowerCase().includes(searchQuery.toLowerCase()) ||
-            address.toLowerCase().includes(searchQuery.toLowerCase())
-        )
-    })
-*/
-
 const handleSearchInputChange = (e) => {
     const query = e.target.value.toLowerCase();
     setSearchQuery(query);

@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-export const HouseSchema = new mongoose.Schema({
+export const RentalSchema = new mongoose.Schema({
     title: {
         type: String,
         required: true
@@ -11,12 +11,6 @@ export const HouseSchema = new mongoose.Schema({
     },
     desc: {
         type: String
-    },
-    bed: {
-        type: String,
-    },
-    bath: {
-        type: String,
     },
     image: {
         type: String
@@ -40,5 +34,5 @@ export const HouseSchema = new mongoose.Schema({
 {timestamps: true}
 );
 
-const HouseModel =  mongoose.model('rilzainHouse', HouseSchema);
-export default HouseModel
+const RentalModel =  mongoose.model('rilzainRental', RentalSchema);
+export default RentalModel

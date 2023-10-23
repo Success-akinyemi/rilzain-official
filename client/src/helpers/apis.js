@@ -203,3 +203,42 @@ export async function makeAdmin({id}){
         throw new Error('Failed To Update House')   
     }
 }
+
+/**RENTALS */
+
+/**Upload Rentals */
+
+export async function uploadRental({ title, price, desc, address, location, houseImageUrl, imageArray }){
+    try {
+        const token = await localStorage.getItem('authToken')
+        //console.log(token)
+        //console.log('FROM CLIENT RENTAL', title, price, desc, address, location, houseImageUrl, imageArray)
+        const response = await axios.post('/api/rental/newRental', { title, price, desc, address, location, houseImageUrl, imageArray }, {headers: {Authorization: `Bearer ${token}`}})
+        //console.log(response.data.statusMsg)
+        if(response.data.statusMsg === 'success'){
+            return response.data.statusMsg
+        } else {
+            throw new Error('House upload failed');
+        }
+    } catch (error) {
+        throw new Error('House Upload Failed');
+    }
+}
+
+export async function updateRental({id, title, price, desc, address, location, houseImageUrl, imageArray}){
+    try {
+        const token = await localStorage.getItem('authToken')
+        //console.log('ID', id)
+        const response = await axios.put(`/api/rental/update`, {id, title, price, desc, address, location, houseImageUrl, imageArray}, {headers: {Authorization: `Bearer ${token}`}})
+        if(response.data.statusMsg === 'success'){
+            toast.success('House Updated')
+            return response.data.statusMsg;
+        } else{
+            toast.error('Failed to Update House')
+            return response.data.data
+        }
+    } catch (error) {
+        toast.error('Failed To Update House')
+        throw new Error('Failed To Update House')
+    }
+}

@@ -1,12 +1,15 @@
 import express from 'express'
 import { config } from 'dotenv'
 config()
+import cors from 'cors'
 import errorHandler from './middleware/error.js'
 import router from './routes/auth.js'
 import privateRouter from './routes/route.js'
 
+
 const app = express()
 app.use(express.json())
+app.use(cors())
 
 app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*');

@@ -23,6 +23,9 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import { useFetch } from './hooks/fetch.hooks'
 import { addHouseToFav, deleteHouse, likeHouse } from './helpers/apis'
 import EditHouse from './Pages/EditHouse/EditHouse'
+import Rentals from './Pages/Rentals/Rentals'
+import Rental from './Pages/Rental/Rental'
+import EditRental from './Pages/EditRental/EditRental'
 
 function App() {
   const [isOpen, setIsOpen] = useState(false)
@@ -141,12 +144,15 @@ function App() {
         <Routes>
           <Route path='/' element={<LandingPage toggle={toggle} isOpen={isOpen} />} isUser={isUser} />
           <Route path='/home' element={<Homes toggle={toggle} isOpen={isOpen} renderLikeIcon={renderLikeIcon} handleLike={handleLike} renderLikeText={renderLikeText} handleAdd={handleAdd} handleDelete={handleDelete} />} />
+          <Route path='/rentals' element={<Rentals toggle={toggle} isOpen={isOpen} />} />
+          <Route path='/rental/:id' element={<Rental toggle={toggle} isOpen={isOpen} />} />
           <Route path='/contact' element={<Contact toggle={toggle} isOpen={isOpen} />} />
           <Route path='/home/:id' element={<Home toggle={toggle} isOpen={isOpen} renderLikeIcon={renderLikeIcon} handleLike={handleLike} renderLikeText={renderLikeText} handleAdd={handleAdd} handleDelete={handleDelete}/>} />
           <Route path='/myHomes' element={<AuthorizeUser><MyHomes toggle={toggle} isOpen={isOpen} renderLikeIcon={renderLikeIcon} handleLike={handleLike} renderLikeText={renderLikeText} handleAdd={handleAdd} handleDelete={handleDelete}/></AuthorizeUser>} />
           <Route path='/profile' element={<AuthorizeUser><ValidToken><Profile toggle={toggle} isOpen={isOpen} /></ValidToken></AuthorizeUser>} />
           <Route path='/newHome' element={<AuthorizeUser><AdminUser><ValidToken><NewHome toggle={toggle} isOpen={isOpen} /></ValidToken></AdminUser></AuthorizeUser>} />
           <Route path='/editHouse/:id' element={<AuthorizeUser><AdminUser><ValidToken><EditHouse toggle={toggle} isOpen={isOpen} /></ValidToken></AdminUser></AuthorizeUser>} />
+          <Route path='/editRental/:id' element={<AuthorizeUser><AdminUser><ValidToken><EditRental toggle={toggle} isOpen={isOpen} /></ValidToken></AdminUser></AuthorizeUser>} />
           <Route path='/registration' element={<Registration toggle={toggle} />} />
           <Route path='/recovery' element={<ForgotPassword />} />
           <Route path='/passwordReset/:resetToken' element={<ResetPassword />} />

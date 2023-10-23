@@ -15,6 +15,33 @@
     padding-right: 10px;
 }
 
+.newHome .newHome-container .opt{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 10px;
+}
+
+.newHome .newHome-container .opt span{
+    background: var(--bg-2);
+    padding: 10px 15px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: 0.3s ease;
+    font-size: 17px;
+    font-weight: 600;
+    color: var(--second-color);
+}
+
+.newHome .newHome-container .opt span:hover{
+    background: var(--bg-3);
+}
+
+.newHome .newHome-container .opt span.bg{
+    background: var(--bg-1);
+}
+
 .newHome .newHome-container h2{
     margin-top: 30px;
 }

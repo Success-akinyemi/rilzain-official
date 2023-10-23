@@ -126,3 +126,35 @@ export async function useFetchAllUsers(query){
     return usersData
 }
 
+/**GET RENTALS */
+export function useFetchRental(rentalId = null){
+    const [rentalData, setRentalData] = useState({ isLoadingRentalData: true, apiRentalData: null, rentalStatus: null, rentalServerError: null })
+    
+    useEffect(() => {
+        const fetchRentalData = async () => {
+            try {
+                    //const id = !query ? getUser() : '' 
+                    let url;
+                    if(rentalId){
+                        console.log('req')
+                        url = `/api/rental/getRental/${rentalId}`
+                    }else{
+                        url = `/api/rental/getRental`
+                    }
+                    console.log(url)
+                    const { data, status} = await axios.get(url) 
+                    console.log('House Data from Hooks>>>', data)
+                
+                if(status === 200){
+                    setRentalData({ isLoadingRentalData: false, apiRentalData: data, rentalStatus: status, rentalServerError: null })
+                }else{
+                    setRentalData({ isLoadingRentalData: false, apiRentalData: null, rentalStatus: status, rentalServerError: null })
+                }
+            } catch (error) {
+                setRentalData({ isLoadingRentalData: false, apiRentalData: null, rentalStatus: null, rentalServerError: error })
+            }
+        }
+        fetchRentalData()
+    }, [rentalId])
+    return rentalData
+}

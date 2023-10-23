@@ -1,0 +1,185 @@
+.rentals{
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.rentals .r-container{
+    padding-top: 60px;
+    margin-bottom: 40px;
+}
+
+.rentals .search{
+    width: 100%;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--bg-1);
+    border-top: 2px solid var(--bg-1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    background: var(--second-color);
+    z-index: 20;
+    margin-top: 30px;
+}
+
+.rentals .search .search-box{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 60%;
+    background: var(--bg-1);
+}
+
+.rentals .search .search-box input{
+    border: 1px solid var(--bg-1);
+    color: var(--bg-1);
+    background: var(--second-color);
+    height: 100%;
+}
+
+.rentals .search .search-box .search-icon{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.rentals .r-container .search-box .search-icon .icon{
+    color: var(--second-color);
+    font-size: 30px;
+    cursor: pointer;
+}
+
+.rentals .r-container .title{
+    margin-left: 5px;
+    font-size: 20px;
+    font-weight: 600;
+    position: fixed;
+    width: 100%;
+    background: var(--second-color);
+    height: 30px;
+    z-index: 20;
+}
+
+.rentals .r-container h1{
+    color: var(--bg-1);
+    text-align: center;
+    margin-top: 100px;
+}
+
+.rentals .r-container .content{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.rentals .r-container .content .card{
+    width: 450px;
+    padding: 20px;
+    overflow: hidden;
+}
+
+.rentals .r-container .content .card img{
+    width: 100%;
+    transition: 0.3s ease-in-out;
+}
+
+.rentals .r-container .content .card img:hover{
+    transform: scale(1.02);
+}
+
+.rentals .r-container .content .card p{
+    font-size: 24px;
+    color: var(--bg-1);
+    margin-top: 15px;
+    margin-bottom: 10px;
+}
+
+.rentals .r-container .content .card .edit{
+    font-size: 18px;
+    color: var(--second-color);
+    background: var(--bg-1);
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-bottom: 20px;
+}
+
+.rentals .r-container .content .card .btn{
+    font-size: 19px;
+    display: flex;
+    align-items: center;
+    transition: .3s ease;
+}
+
+.rentals .r-container .content .card .btn:hover{
+    transform: scale(1.02);
+}
+
+.rentals .r-container .content .card .btn .icon{
+    font-size: 18px;
+    margin-left: 5px;
+}
+
+.rentals .r-container .content .card .img{
+    position: relative;
+    transition: .3s ease-in-out;
+    overflow: hidden;
+}
+
+.rentals .r-container .content .card .img:hover .overlay{
+    top: 0;
+}
+
+.rentals .r-container .no-result{
+    margin-top: 20px;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.rentals .r-container .pagination{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.rentals .r-container .pagination button{
+    padding: 8px;
+    border: none;
+    outline: none;
+    font-size: 17px;
+    color: var(--second-color);
+    background: var(--bg-1);
+    border-radius: 10px;
+    cursor: pointer;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.rentals .r-container .pagination button:disabled{
+    cursor: not-allowed;
+}
+
+@media screen and (max-width: 768px) {
+    .rentals .r-container .content .card{
+        width: 80%;
+    }
+}
+
+@media screen and (max-width: 450px) {
+    .rentals .r-container .content .card{
+        width: 85%;
+    }
+
+    .rentals .r-container .content .card p{
+        font-size: 22px;
+    }
+
+    .rentals .search .search-box{
+        width: 90%;
+    }
+
+}
