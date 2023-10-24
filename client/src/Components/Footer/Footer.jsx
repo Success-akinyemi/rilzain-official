@@ -16,10 +16,10 @@ function Footer() {
             </h1>
 
             <div className="links">
-                <Link className='link'><InstagramIcon className='icon' /></Link>
-                <Link className='link'><FacebookOutlinedIcon className='icon' /></Link>
-                <Link className='link'><WhatsAppIcon className='icon' /></Link>
-                <Link className='link'><PhoneIcon className='icon' /></Link>    
+                <a target='_blank' href='https://www.instagram.com/rilzainsolutions' className='link'><InstagramIcon className='icon' /></a>
+                <a target='_blank' className='link'><FacebookOutlinedIcon className='icon' /></a>
+                <a className='link' href='https://wa.me/+2347025073509?text=Hello,' ><WhatsAppIcon className='icon' /></a>
+                <a className='link' href="tel:+2348115397098" ><PhoneIcon className='icon' /></a>    
             </div>
         </div>
         <div className="right">
@@ -32,7 +32,7 @@ function Footer() {
                 </div>
                 <div className="two">
                     <span className='title link'>Office</span>
-                    <span className='link'>Herbert Macaurly Way,</span>
+                    <span className='link'>i65, Herbert Macaulay Way, Adekunle, Besides Zenith bank opposite paga, Adekunle ebute-metta yaba</span>
                     <span className='link'>Lagos,</span>
                     <span className='link'>Nigeria.</span>
                 </div>

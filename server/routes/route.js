@@ -25,4 +25,6 @@ privateRouter.route('/rental/update').put(Protect, controllers.updateRental)
 
 //DELETE ROUTES
 privateRouter.route('/house/delete').delete(Protect, controllers.deleteHouse)
+privateRouter.route('/house/deleteSavedHouse').delete( controllers.deleteSavedHouse)
+
 export default privateRouter

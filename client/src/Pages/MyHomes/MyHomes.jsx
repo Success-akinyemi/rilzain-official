@@ -2,22 +2,25 @@ import { useEffect, useState } from 'react'
 import DropDown from '../../Components/DropDown/DropDown'
 import Footer from '../../Components/Footer/Footer'
 import Navbar from '../../Components/Navbar/Navbar'
-import { useFetch, useFetchMyHomes } from '../../hooks/fetch.hooks'
+import { useFetch, useFetchMyHomes, useFetchSaveHouse } from '../../hooks/fetch.hooks'
 import './MyHomes.css'
 import Aos from 'aos'
 import 'aos/dist/aos.css'
 import Spinner from '../../Components/Helpers/Spinner/Spinner'
+import DisabledByDefaultIcon from '@mui/icons-material/DisabledByDefault';
+import { Link } from 'react-router-dom'
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 
-function MyHomes({ toggle, isOpen, renderLikeIcon, handleLike, renderLikeText, handleAdd, handleDelete }) {
+function MyHomes({ toggle, isOpen, renderLikeIcon, handleLike, renderLikeText, handleAdd, handleRemove }) {
 
   const [currentPage, setCurrentPage] = useState(1);
 
   const { isLoading, apiData, serverError } = useFetch()
 
-  const { isLoadingMyHomesData, myHomesApiData, myHomesStatus, myHomesServerError} = useFetchMyHomes()
-  const houseData = myHomesApiData?.data.saveHouseData
+  const { isLoadingSaveHouse, saveHouseApiData, saveHouseStatus, saveHouseServerError} = useFetchSaveHouse()
+  const houseData = saveHouseApiData?.data.saveHouseData
 
-  console.log('MY HOUSE DTA', myHomesApiData?.data?.saveHouseData)
+  console.log('MY SAVE HOUSE DTA', saveHouseApiData?.data?.saveHouseData)
 
   const itemPerPage = 6
   //Handle Pagination
@@ -46,9 +49,9 @@ function MyHomes({ toggle, isOpen, renderLikeIcon, handleLike, renderLikeText, h
         <Navbar toggle={toggle} />
         <DropDown toggle={toggle} isOpen={isOpen} />
         <div className='myHomes-container'>
-            <h2>{apiData?.username}</h2>
+            <h2>Hello, {apiData?.username}</h2>
             {
-                isLoadingMyHomesData ? (
+                isLoadingSaveHouse ? (
                     <Spinner />
                 ) : (
                     <div className="content">
@@ -63,9 +66,9 @@ function MyHomes({ toggle, isOpen, renderLikeIcon, handleLike, renderLikeText, h
                                                             <div className="small-1">{ renderLikeText(item._id) }</div>
                                                             {renderLikeIcon(item._id)}
                                                         </div>
-                                                        <div className="add" onClick={() => handleAdd(item._id)}>
-                                                            <div className="small-2">Add to Favorites</div>
-                                                            <AddIcon className='icon icon-2' />
+                                                        <div className="add" onClick={() => handleRemove(item._id)}>
+                                                            <div className="small-2">Remove from Favorites</div>
+                                                            <DisabledByDefaultIcon className='icon icon-2' />
                                                         </div>
                                                     </div>
                                                 </div>

@@ -87,6 +87,10 @@
 }
 
 @media screen and (max-width: 450px){
+    .footer .right .card{
+        flex-direction: column;
+    }
+    
     .footer{
         flex-direction: column;
     }

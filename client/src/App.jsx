@@ -21,7 +21,7 @@ import ResetPassword from './Components/Content/ResetPassword/ResetPassword'
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import { useFetch } from './hooks/fetch.hooks'
-import { addHouseToFav, deleteHouse, likeHouse } from './helpers/apis'
+import { addHouseToFav, deleteHouse, deleteSaveHouse, likeHouse } from './helpers/apis'
 import EditHouse from './Pages/EditHouse/EditHouse'
 import Rentals from './Pages/Rentals/Rentals'
 import Rental from './Pages/Rental/Rental'
@@ -113,6 +113,24 @@ function App() {
           }
       }
 
+      const handleRemove = async(houseId) => {
+        const token = localStorage.getItem('authToken')
+        const user = apiData?._id !== token
+        const userId = apiData?._id
+        const confirmed = window.confirm('Are you sure you want to delete this house')
+        if(!user){
+            toast.error('Not Allowed')
+        }
+        if(confirmed){
+            try {
+                const deletedSavedHouse = await deleteSaveHouse({ houseId, userId })
+            } catch (error) {
+                console.log(error)
+                toast.error('Could not delete House')
+            }
+        }
+      }
+
   const toggle = () => {
     setIsOpen(!isOpen)
   }
@@ -131,8 +149,8 @@ function App() {
         {
           contact ? (
           <div className="icons visible ">
-            <a href=""><WhatsAppIcon className='icon' /></a>
-            <a href=""><LocalPhoneIcon className='icon' /></a>
+            <a href="https://wa.me/+2347025073509?text=Hello,"><WhatsAppIcon className='icon' /></a>
+            <a href="tel:+2348115397098"><LocalPhoneIcon className='icon' /></a>
           </div>
           ) : (
             ''
@@ -148,7 +166,7 @@ function App() {
           <Route path='/rental/:id' element={<Rental toggle={toggle} isOpen={isOpen} />} />
           <Route path='/contact' element={<Contact toggle={toggle} isOpen={isOpen} />} />
           <Route path='/home/:id' element={<Home toggle={toggle} isOpen={isOpen} renderLikeIcon={renderLikeIcon} handleLike={handleLike} renderLikeText={renderLikeText} handleAdd={handleAdd} handleDelete={handleDelete}/>} />
-          <Route path='/myHomes' element={<AuthorizeUser><MyHomes toggle={toggle} isOpen={isOpen} renderLikeIcon={renderLikeIcon} handleLike={handleLike} renderLikeText={renderLikeText} handleAdd={handleAdd} handleDelete={handleDelete}/></AuthorizeUser>} />
+          <Route path='/myHomes' element={<AuthorizeUser><MyHomes toggle={toggle} isOpen={isOpen} renderLikeIcon={renderLikeIcon} handleLike={handleLike} renderLikeText={renderLikeText} handleAdd={handleAdd} handleRemove={handleRemove}/></AuthorizeUser>} />
           <Route path='/profile' element={<AuthorizeUser><ValidToken><Profile toggle={toggle} isOpen={isOpen} /></ValidToken></AuthorizeUser>} />
           <Route path='/newHome' element={<AuthorizeUser><AdminUser><ValidToken><NewHome toggle={toggle} isOpen={isOpen} /></ValidToken></AdminUser></AuthorizeUser>} />
           <Route path='/editHouse/:id' element={<AuthorizeUser><AdminUser><ValidToken><EditHouse toggle={toggle} isOpen={isOpen} /></ValidToken></AdminUser></AuthorizeUser>} />

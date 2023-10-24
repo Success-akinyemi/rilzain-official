@@ -7,8 +7,201 @@
 
 .myHomes .myHomes-container{
     padding-top: 70px;
+    margin-bottom: 40px;
 }
 
 .myHomes .myHomes-container h2{
     color: var(--bg-1);
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.myHomes .myHomes-container .content{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.myHomes .myHomes-container .content .card{
+    width: 450px;
+    padding: 20px;
+    overflow: hidden;
+}
+
+.myHomes .myHomes-container .content .card img{
+    width: 100%;
+    transition: 0.3s ease-in-out;
+}
+
+.myHomes .myHomes-container .content .card img:hover{
+    transform: scale(1.02);
+}
+
+.myHomes .myHomes-container .content .card p{
+    font-size: 24px;
+    color: var(--bg-1);
+    margin-top: 15px;
+    margin-bottom: 20px;
+}
+
+.myHomes .myHomes-container .content .card .btn{
+    font-size: 19px;
+    display: flex;
+    align-items: center;
+    transition: .3s ease;
+}
+
+.myHomes .myHomes-container .content .card .btn:hover{
+    transform: scale(1.02);
+}
+
+.myHomes .myHomes-container .content .card .btn .icon{
+    font-size: 18px;
+    margin-left: 5px;
+}
+
+.myHomes .myHomes-container .content .card .img .overlay{
+    position: absolute;
+    top: -100%;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    color: var(--second-color);
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 20;
+}
+
+.myHomes .myHomes-container .content .card .img .overlay .top{
+    display: flex;
+}
+
+.myHomes .myHomes-container .content .card .img .overlay .top .actions{
+    margin-left: auto;
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+    margin-right: 10px;
+    gap: 10px;
+    align-items: center;
+}
+
+.myHomes .myHomes-container .overlay .actions .fav,
+.myHomes .myHomes-container .overlay .actions .add,
+.myHomes .myHomes-container .overlay .actions .edit,
+.myHomes .myHomes-container .overlay .actions .del{
+    position: relative;
+    transition: 0.2s ease-in-out;
+}
+
+.myHomes .myHomes-container .overlay .actions .edit{
+    margin-top: 10px;
+}
+
+.myHomes .myHomes-container .overlay .icon-1,
+.myHomes .myHomes-container .overlay .icon-2,
+.myHomes .myHomes-container .overlay .icon-3,
+.myHomes .myHomes-container .overlay .icon-4{    
+    font-size: 40px;
+    cursor: pointer;
+    transition: .3 ease-in-out;
+}
+
+.myHomes .myHomes-container .overlay .icon-1.red{
+    color: var(--like-color);
+}
+
+.myHomes .myHomes-container .overlay .small-1,
+.myHomes .myHomes-container .overlay .small-2,
+.myHomes .myHomes-container .overlay .small-3,
+.myHomes .myHomes-container .overlay .small-4{
+    position: absolute;
+    z-index: 10;
+    bottom: -10px;
+    left: 1px;
+    color: var(--second-color);
+    font-size: 15px;
+    opacity: 0;
+}
+
+.myHomes .myHomes-container .overlay .small-2{
+    left: -20px;
+    text-align: center;
+    bottom: -60px;
+}
+
+
+.myHomes .myHomes-container .overlay .actions .fav:hover .small-1,
+.myHomes .myHomes-container .overlay .actions .add:hover .small-2,
+.myHomes .myHomes-container .overlay .actions .edit:hover .small-3,
+.myHomes .myHomes-container .overlay .actions .del:hover .small-4{
+    opacity: 1;
+}
+
+.myHomes .myHomes-container .content .card .img{
+    position: relative;
+    transition: .3s ease-in-out;
+    overflow: hidden;
+}
+
+.myHomes .myHomes-container .content .card .img:hover .overlay{
+    top: 0;
+}
+
+.myHomes .myHomes-container .no-result{
+    margin-top: 20px;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.myHomes .myHomes-container .pagination{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.myHomes .myHomes-container .pagination button{
+    padding: 8px;
+    border: none;
+    outline: none;
+    font-size: 17px;
+    color: var(--second-color);
+    background: var(--bg-1);
+    border-radius: 10px;
+    cursor: pointer;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.myHomes .myHomes-container .pagination button:disabled{
+    cursor: not-allowed;
+}
+
+@media screen and (max-width: 768px) {
+    .myHomes .myHomes-container .content .card{
+        width: 80%;
+    }
+}
+
+@media screen and (max-width: 450px) {
+    .myHomes .myHomes-container .content .card{
+        width: 85%;
+    }
+
+    .myHomes .myHomes-container .content .card p{
+        font-size: 22px;
+    }
+
+    .myHomes .search .search-box{
+        width: 90%;
+    }
+
+    .myHomes .myHomes-container .content .card .img .overlay .top .actions{
+        flex-direction: row;
+    }
+
+    .myHomes .myHomes-container .overlay .actions .edit{
+        margin-top: 0;
+    }
 }

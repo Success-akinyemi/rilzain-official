@@ -115,7 +115,7 @@ export async function getMyHouse(req, res){
         const userHouse = await SavedHouseModel.find({ userId: id })
 
         if(!userHouse){
-            res.status(404).json({ statusMsg: 'fail', error: 'No Favourites or Saved found'})
+            res.status(404).json({ statusMsg: 'fail', data: 'No Favourites or Saved found'})
         }
 
         const houseIds = userHouse.map((savedHouse) => savedHouse.houseId);
@@ -125,7 +125,7 @@ export async function getMyHouse(req, res){
         res.status(200).json({ statusMsg: 'success', data: {saveHouseData}})
     } catch (error) {
         console.log('Cannot get User Saved House', error)
-        res.status(500).json({ statusMsg: 'fail', error: 'Failed to get user House'})
+        res.status(500).json({ statusMsg: 'fail', data: 'Failed to get user House'})
     }
 }
 
@@ -149,6 +149,34 @@ export async function deleteHouse(req, res){
     } catch (error) {
         console.log(error)
         res.status(500).json({ statusMsg: 'fail', error: 'Failed to Delete House'})
+    }
+}
+
+export async function deleteSavedHouse(req, res){
+    const { houseId, userId } = req.query
+    console.log(userId)
+    console.log(houseId)
+    console.log('RECIEVED')
+    try {
+        const deleteUserSavedHouse = await SavedHouseModel.findOne({ userId: userId, houseId: houseId })
+
+        if(deleteUserSavedHouse){
+            console.log(deleteUserSavedHouse)
+            const ID = deleteUserSavedHouse._id
+            console.log('ID', ID)
+
+            await SavedHouseModel.findByIdAndDelete({ _id: ID });
+
+            console.log('Matching record found and deleted');
+            res.status(200).json({ statusMsg: 'success', data: 'House deleted successfully' });
+        }else{
+            console.log('NO HOUSE FOUND');
+            
+            res.status(404).json({ statusMsg: 'fail', data: 'No matching record found' })
+        }
+    } catch (error) {
+        console.log(error)
+        res.status(500).json({ statusMsg: 'fail', data: 'Failed to Delete House'})
     }
 }
 

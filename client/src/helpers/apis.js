@@ -164,6 +164,24 @@ export async function deleteHouse({ houseId, admin }){
     }
 }
 
+/**DELETE USER SAVED HOUSE */
+export async function deleteSaveHouse({ houseId, userId }){
+    try {
+        const token = await localStorage.getItem('authToken')
+        const response = await axios.delete(`/api/house/deleteSavedHouse?houseId=${houseId}&userId=${userId}`, {headers: {Authorization: `Bearer ${token}`}})
+        if(response.data.statusMsg === 'success'){
+            const msg = response.data.message
+            console.log(msg)
+            toast.success(msg)
+        }
+    } catch (error) {
+        console.log('error',error)
+        const err = error.response.data.error
+        toast.error(err)
+        throw new Error('Failed To Delete House')
+    }
+}
+
 /**UPDATE HOUSE */
 export async function updateHouse({id, title, price, desc, address, location, houseImageUrl, imageArray}){
     try {

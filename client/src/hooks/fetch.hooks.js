@@ -158,3 +158,36 @@ export function useFetchRental(rentalId = null){
     }, [rentalId])
     return rentalData
 }
+
+/**Get USER SAVE HOUSE v2 */
+export function useFetchSaveHouse(query){
+    const [saveHouseData, setSaveHouseData] = useState({ isLoadingSaveHouse: true, saveHouseApiData: null, saveHouseStatus: null, saveHouseServerError: null})
+
+    useEffect(() => {
+        const fetchSaveHouseData =  async () => {
+            try {
+                const { id } = !query ? await getUser() : await getUser();
+                
+                const config = {
+                    headers: {
+                      Authorization: `Bearer ${id}`,
+                    },
+                  };            
+
+                const { data, status} = !query ? await axios.get(`/api/house/getMyhouse/${id}`, config) : await axios.get(`/api/getUsers/${id}`, config)
+                console.log('Data from Hooks Save House>>>', data)
+
+                if(status === 200){
+                    setSaveHouseData({ isLoadingSaveHouse: false, saveHouseApiData: data, saveHouseStatus: status, saveHouseServerError: null})
+                } else{
+                    setSaveHouseData({ isLoadingSaveHouse: false, saveHouseApiData: null, saveHouseStatus: status, saveHouseServerError: null})
+                }
+            } catch (error) {
+                setSaveHouseData({ isLoadingSaveHouse: false, saveHouseApiData: null, saveHouseStatus: null, saveHouseServerError: error})
+            }
+        };
+        fetchSaveHouseData()
+    }, [query])
+
+    return saveHouseData
+}
