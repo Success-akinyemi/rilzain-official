@@ -28,11 +28,11 @@ function Footer() {
                     <Link className='title link'>Contact Us</Link>
                     <Link className='link'>FAQ</Link>
                     <Link className='link'>Support</Link>
-                    <Link className='link'>Homes</Link>
+                    <Link className='link' to='/home'>Homes</Link>
                 </div>
                 <div className="two">
                     <span className='title link'>Office</span>
-                    <span className='link'>i65, Herbert Macaulay Way, Adekunle, Besides Zenith bank opposite paga, Adekunle ebute-metta yaba</span>
+                    <span className='link'>165, Herbert Macaulay Way, Adekunle, Besides Zenith bank opposite paga, Adekunle ebute-metta yaba</span>
                     <span className='link'>Lagos,</span>
                     <span className='link'>Nigeria.</span>
                 </div>
