@@ -33,11 +33,11 @@ function NewHome({ isOpen, toggle }) {
 
         const formData = new FormData();
         //formData.append('key', apiKey);
-        formData.append('upload_preset', 'wtqdxw06');
+        formData.append('upload_preset', 'ec1ikrql');
         formData.append('file', image);
 
         try {
-            const response = await fetch(`https://api.cloudinary.com/v1_1/dsjwuwjm1/image/upload` ,{
+            const response = await fetch(`https://api.cloudinary.com/v1_1/ddhq7rrfq/image/upload` ,{
                 method: 'POST',
                 body: formData,
             })
