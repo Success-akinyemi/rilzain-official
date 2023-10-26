@@ -21,7 +21,7 @@ import ResetPassword from './Components/Content/ResetPassword/ResetPassword'
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import { useFetch } from './hooks/fetch.hooks'
-import { addHouseToFav, deleteHouse, deleteSaveHouse, likeHouse } from './helpers/apis'
+import { addHouseToFav, deleteHouse, deleteSaveHouse, deleterental, likeHouse, likeRentHouse } from './helpers/apis'
 import EditHouse from './Pages/EditHouse/EditHouse'
 import Rentals from './Pages/Rentals/Rentals'
 import Rental from './Pages/Rental/Rental'
@@ -72,6 +72,32 @@ function App() {
         }
     }
 
+    const handleRentalLike = async (houseId) => {
+      const user = apiData?._id
+      const house = houseId
+
+      if(!apiData){
+          toast.error('Please Login First')
+      }else{
+          try {
+              const likeAHouse = await likeRentHouse({ house, user})
+              
+              //Update like House based on response
+              const updateLikedHouse = [...likedHouses];
+              if(likedHouses.includes(house)){
+                  updateLikedHouse.splice(updateLikedHouse.indexOf(houseId), 1);
+              } else {
+                  // user liked house
+                  updateLikedHouse.push(house);
+              }
+              setLikedHouses(updateLikedHouse)
+              localStorage.setItem('likedHouses', JSON.stringify(updateLikedHouse));
+          } catch (error) {
+              toast.error('Failed to Like House')
+          }
+      }
+  }
+
     const renderLikeIcon = (houseId) => {
         return likedHouses.includes(houseId) ? (
           <FavoriteIcon className='icon icon-1 red' />
@@ -84,8 +110,8 @@ function App() {
       return likedHouses.includes(houseId) ? 'Liked' : 'Like'
     }
 
-        //Handle Add functionality
-        const handleAdd = async (houseId) => {
+      //Handle Add functionality
+      const handleAdd = async (houseId) => {
           const user = apiData?._id
           const house = houseId
   
@@ -131,6 +157,23 @@ function App() {
         }
       }
 
+            //Handle Rental Delete functionality
+            const handleRentalDelete = async (houseId) => {
+              const admin = apiData?.isAdmin
+              const confirmed = window.confirm('Are you sure you want to delete this house')
+              if(!admin){
+                  toast.error('Not Allowed')
+              }
+              if(confirmed){
+                  try {
+                      const deletedHouse = await deleterental({ houseId, admin })
+                  } catch (error) {
+                      console.log(error)
+                      toast.error('Could not delete House')
+                  }
+              }
+          }
+
   const toggle = () => {
     setIsOpen(!isOpen)
   }
@@ -162,7 +205,7 @@ function App() {
         <Routes>
           <Route path='/' element={<LandingPage toggle={toggle} isOpen={isOpen} />} isUser={isUser} />
           <Route path='/home' element={<Homes toggle={toggle} isOpen={isOpen} renderLikeIcon={renderLikeIcon} handleLike={handleLike} renderLikeText={renderLikeText} handleAdd={handleAdd} handleDelete={handleDelete} />} />
-          <Route path='/rentals' element={<Rentals toggle={toggle} isOpen={isOpen} />} />
+          <Route path='/rentals' element={<Rentals toggle={toggle} isOpen={isOpen} handleRentalLike={handleRentalLike} renderLikeIcon={renderLikeIcon} renderLikeText={renderLikeText} handleRentalDelete={handleRentalDelete} />} />
           <Route path='/rental/:id' element={<Rental toggle={toggle} isOpen={isOpen} />} />
           <Route path='/contact' element={<Contact toggle={toggle} isOpen={isOpen} />} />
           <Route path='/home/:id' element={<Home toggle={toggle} isOpen={isOpen} renderLikeIcon={renderLikeIcon} handleLike={handleLike} renderLikeText={renderLikeText} handleAdd={handleAdd} handleDelete={handleDelete}/>} />

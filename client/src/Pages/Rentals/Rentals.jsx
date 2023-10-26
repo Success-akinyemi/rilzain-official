@@ -10,8 +10,9 @@ import Aos from 'aos'
 import 'aos/dist/aos.css'
 import { Link } from 'react-router-dom'
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import DeleteIcon from '@mui/icons-material/Delete';
 
-function Rentals({isOpen, toggle}) {
+function Rentals({isOpen, toggle, handleRentalLike, renderLikeIcon, renderLikeText, handleRentalDelete}) {
     const [currentPage, setCurrentPage] = useState(1);
     const [searchQuery, setSearchQuery] = useState('')
     const [searchResultFound, setSearchResultFound] = useState(false)
@@ -93,6 +94,38 @@ const handleSearchInputChange = (e) => {
                                 dataToDisplay?.map((item) => (
                                 <div data-aos='zoom-in' className="card" key={item._id}>
                                     <div className="img">
+                                        <div className="overlay">
+                                            <div className="top">
+                                                <div className="actions">
+                                                    <div className="fav" onClick={() => handleRentalLike(item._id)}>
+                                                        <div className="small-1">{renderLikeText(item._id)}</div>
+                                                        {renderLikeIcon(item._id)}
+                                                    </div>
+                                                    {
+                                                        /**
+                                                         *<div className="add" onClick={() => handleAdd(item._id)}>
+                                                            <div className="small-2">Add to Favorites</div>
+                                                            <AddIcon className='icon icon-2' />
+                                                        *</div>
+                                                         * 
+                                                         */
+                                                    }
+                                                    {
+                                                        apiData?.isAdmin ? (
+                                                            <>
+                                                                <div className="del" onClick={() => handleRentalDelete(item._id)}>
+                                                                    <div className="small-4">Delete</div>
+                                                                    <DeleteIcon className='icon icon-4' />
+                                                                </div>
+                                                            </>
+
+                                                        ) : (
+                                                            ''
+                                                        )
+                                                    }
+                                                </div>
+                                            </div>
+                                        </div>
 
                                         <img src={item.image} alt='home'/>
                                     </div>

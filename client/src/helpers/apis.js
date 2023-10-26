@@ -3,8 +3,8 @@ import jwt_decode from 'jwt-decode'
 import { toast } from 'react-hot-toast'
 import { useNavigate } from 'react-router-dom'
 
-//axios.defaults.baseURL = 'http://localhost:9000'
-axios.defaults.baseURL = 'https://rilzain-solutions-api.onrender.com'
+axios.defaults.baseURL = 'http://localhost:9000'
+//axios.defaults.baseURL = 'https://rilzain-solutions-api.onrender.com'
 
 
 /**Get user from token */
@@ -155,6 +155,8 @@ export async function deleteHouse({ houseId, admin }){
             const msg = response.data.message
             console.log(msg)
             toast.success(msg)
+
+            window.location.reload()
         }
     } catch (error) {
         console.log('error',error)
@@ -258,5 +260,42 @@ export async function updateRental({id, title, price, desc, address, location, h
     } catch (error) {
         toast.error('Failed To Update House')
         throw new Error('Failed To Update House')
+    }
+}
+
+/**Like Rental */
+export async function likeRentHouse({ house, user }){
+    try {
+        console.log('LIKE DATA', user, house)
+        const token = await localStorage.getItem('authToken')
+        const response = await axios.post('/api/rental/like', { house, user }, {headers: {Authorization: `Bearer ${token}`}})
+    
+        if(response.status === 200){
+            return response.data;
+        }else{
+            throw new Error('Failed to like House')
+        }
+    } catch (error) {
+        throw error;
+    }
+}
+
+/**DELETE RENTAL */
+export async function deleterental({ houseId, admin }){
+    try {
+        const token = await localStorage.getItem('authToken')
+        const response = await axios.delete(`/api/rental/delete?houseId=${houseId}&admin=${admin}`, {headers: {Authorization: `Bearer ${token}`}})
+        if(response.data.statusMsg === 'success'){
+            const msg = response.data.message
+            console.log(msg)
+            toast.success(msg)
+
+            window.location.reload()
+        }
+    } catch (error) {
+        console.log('error',error)
+        const err = error.response.data.error
+        toast.error(err)
+        throw new Error('Failed To Delete House')
     }
 }

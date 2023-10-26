@@ -10,6 +10,8 @@ privateRouter.route('/house/newHouse').post(Protect, controllers.newHouse);
 privateRouter.route('/house/like').post(controllers.likeHouse);
 privateRouter.route('/house/addToFav').post(controllers.favHouse);
 privateRouter.route('/rental/newRental').post(controllers.newRental)
+privateRouter.route('/rental/like').post(controllers.likeRentalHouse)
+
 
 //GET ROUTES
 privateRouter.route('/house/getHouse').get(controllers.getHouses)
@@ -25,6 +27,7 @@ privateRouter.route('/rental/update').put(Protect, controllers.updateRental)
 
 //DELETE ROUTES
 privateRouter.route('/house/delete').delete(Protect, controllers.deleteHouse)
+privateRouter.route('/rental/delete').delete(Protect, controllers.deleteRental)
 privateRouter.route('/house/deleteSavedHouse').delete( controllers.deleteSavedHouse)
 
 export default privateRouter

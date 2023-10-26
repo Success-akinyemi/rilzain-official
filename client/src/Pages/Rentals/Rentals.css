@@ -130,6 +130,89 @@
     overflow: hidden;
 }
 
+.rentals .r-container .content .card .img .overlay{
+    position: absolute;
+    top: -100%;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    color: var(--second-color);
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 20;
+}
+
+.rentals .r-container .content .card .img .overlay .top{
+    display: flex;
+}
+
+.rentals .r-container .content .card .img .overlay .top .actions{
+    margin-left: auto;
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+    margin-right: 10px;
+    gap: 10px;
+    align-items: center;
+}
+
+.rentals .r-container .overlay .actions .fav,
+.rentals .r-container .overlay .actions .add,
+.rentals .r-container .overlay .actions .edit,
+.rentals .r-container .overlay .actions .del{
+    position: relative;
+    transition: 0.2s ease-in-out;
+}
+
+.rentals .r-container .overlay .actions .edit{
+    margin-top: 10px;
+}
+
+.rentals .r-container .overlay .icon-1,
+.rentals .r-container .overlay .icon-2,
+.rentals .r-container .overlay .icon-3,
+.rentals .r-container .overlay .icon-4{    
+    font-size: 40px;
+    cursor: pointer;
+    transition: .3 ease-in-out;
+}
+
+.rentals .r-container .overlay .icon-1.red{
+    color: var(--like-color);
+}
+
+.rentals .r-container .overlay .small-1,
+.rentals .r-container .overlay .small-2,
+.rentals .r-container .overlay .small-3,
+.rentals .r-container .overlay .small-4{
+    position: absolute;
+    z-index: 10;
+    bottom: -10px;
+    left: 1px;
+    color: var(--second-color);
+    font-size: 15px;
+    opacity: 0;
+}
+
+.rentals .r-container .overlay .small-2{
+    left: -20px;
+    text-align: center;
+    bottom: -30px;
+}
+
+
+.rentals .r-container .overlay .actions .fav:hover .small-1,
+.rentals .r-container .overlay .actions .add:hover .small-2,
+.rentals .r-container .overlay .actions .edit:hover .small-3,
+.rentals .r-container .overlay .actions .del:hover .small-4{
+    opacity: 1;
+}
+
+.rentals .r-container .content .card .img{
+    position: relative;
+    transition: .3s ease-in-out;
+    overflow: hidden;
+}
+
 .rentals .r-container .content .card .img:hover .overlay{
     top: 0;
 }

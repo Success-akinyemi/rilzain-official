@@ -22,7 +22,8 @@ export async function likeHouse(req, res){
         
         res.status(200).json({ message: 'Like Updated Successfully', statusMsg: 'success'})
     } catch (error) {
-        
+        console.log('Failed to Like House >>', error)
+        res.status(500).json({data: 'Unable to save House', statusMsg: 'fail'})
     }
 }
 
@@ -237,6 +238,7 @@ export async function newRental(req, res){
         res.status(500).json({data: 'Unable to save House', statusMsg: 'fail'})
     }
 }
+
 export async function getRental(req, res){
     
     try {
@@ -302,5 +304,53 @@ export async function updateRental(req, res){
     } catch (error) {
         console.log('ERROR UPDATING RENTAL', error)
         res.status(500).json({ statusMsg: 'fail', data: 'ERROR UPDATING RENTAL' })
+    }
+}
+
+export async function likeRentalHouse(req, res){
+    const { house, user } = req.body
+
+    try {
+        const likedHouse = await RentalModel.findById(house)
+
+        if(!likedHouse){
+            res.status(404).json({ error: 'Rental not Found'})
+        }
+
+        if(likedHouse.likes.includes(user)){
+            likedHouse.likes.pull(user)
+        } else{
+            likedHouse.likes.push(user)
+        }
+
+        await likedHouse.save()
+        
+        res.status(200).json({ message: 'Like Updated Successfully', statusMsg: 'success'})
+    } catch (error) {
+        console.log('Failed to Like Rental >>', error)
+        res.status(500).json({data: 'Unable to save Rental', statusMsg: 'fail'})
+    }
+}
+
+export async function deleteRental(req, res){
+    const { houseId, admin } = req.query
+    console.log(admin)
+    console.log(houseId)
+    console.log('RECIEVED')
+    try {
+        if(!admin){
+            return res.status(404).json({statusMsg: 'fail', error: 'NOT ALLOWED'})
+        } else{
+            const deletedHouse = await RentalModel.findByIdAndDelete(houseId)
+            
+            if(deletedHouse){
+                return res.status(200).json({ statusMsg: 'success', message: 'Rental Deleted successfully'})
+            } else{
+                return res.status(400).json({ statusMsg: 'fail', error: 'Failed to Delete Rental'})
+            }
+        }
+    } catch (error) {
+        console.log(error)
+        res.status(500).json({ statusMsg: 'fail', error: 'Failed to Delete Rental'})
     }
 }
