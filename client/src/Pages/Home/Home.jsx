@@ -100,8 +100,8 @@ function Home({ toggle, isOpen, renderLikeIcon, handleLike, renderLikeText, hand
                             <h2>Description: <p>{desc}</p> </h2>
         
                             <div className="btn">
-                                <button><a href="tel:+" className='link' ><PhoneIcon className='icon' /> Call Us</a></button>
-                                <button><a href="" className='link'><WhatsAppIcon className='icon' /> Whatsapp Us</a></button>
+                                <button><a href="tel:+2348115397098" className='link' ><PhoneIcon className='icon' /> Call Us</a></button>
+                                <button><a href={`https://wa.me/+2347025073509?text=Hello, I am reaching out regard this house: ${title}. at ${address}, ${location}`} className='link'><WhatsAppIcon className='icon' /> Whatsapp Us</a></button>
                             </div>
                         </div>
                     </div>
