@@ -3,8 +3,8 @@ import jwt_decode from 'jwt-decode'
 import { toast } from 'react-hot-toast'
 import { useNavigate } from 'react-router-dom'
 
-axios.defaults.baseURL = 'http://localhost:9000'
-//axios.defaults.baseURL = 'https://rilzain-solutions-api.onrender.com'
+//axios.defaults.baseURL = 'http://localhost:9000'
+axios.defaults.baseURL = 'https://rilzain-solutions-api.onrender.com'
 
 
 /**Get user from token */
