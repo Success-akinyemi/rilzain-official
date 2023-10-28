@@ -25,6 +25,10 @@ export const UserSchema = new mongoose.Schema({
         type: Boolean,
         default: false
     },
+    isGrandAdmin: {
+        type: Boolean,
+        default: false
+    },
     address: {
         type: String
     },

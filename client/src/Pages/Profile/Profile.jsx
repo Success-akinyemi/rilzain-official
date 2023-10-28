@@ -20,13 +20,14 @@ function Profile({toggle, isOpen}) {
   const [menu, setMenu] = useState(false)
 
   const { isLoading, apiData, serverError } = useFetch()
-
+  const userId = apiData?._id
+  const grandAdmin = apiData?.isGrandAdmin
   const renderSelectedComponent = () => {
     switch(selectedMenuItem) {
       case 'userProfile':
         return <UserProfile />;
       case 'members':
-        return apiData?.isAdmin ? <Members /> : <UserProfile />;
+        return apiData?.isAdmin ? <Members userId={userId} grandAdmin={grandAdmin} /> : <UserProfile />;
 
 
       default: 

@@ -6,7 +6,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import { makeAdmin } from '../../helpers/apis';
 import { Toaster } from 'react-hot-toast';
 
-function Members() {
+function Members({ userId, grandAdmin }) {
   
   const token = localStorage.getItem('authToken')
 
@@ -27,7 +27,14 @@ function Members() {
   const handleMakeAdmin = async (id) => {
     const confirmed = window.confirm('Are you sure you want to make this user an admin?');
     if (confirmed) {
-      const response = await makeAdmin({id})
+      const response = await makeAdmin({id, userId})
+    }
+  }
+
+  const handleRemoveAdmin = async (id) => {
+    const confirmed = window.confirm('Are you sure you want remove this user from admin?');
+    if (confirmed) {
+      const response = await makeAdmin({id, userId})
     }
   }
 
@@ -80,11 +87,24 @@ function Members() {
                 <p>Email: {selectedUser.email}</p>
                 <p>Phone Number: {selectedUser.phoneNumber}</p>
                 <p>Is Admin: {selectedUser.isAdmin ? 'Yes' : 'No'}</p>
-                <button
-                  onClick={() => handleMakeAdmin(selectedUser._id)}
-                >
-                  Make Admin
-                </button>
+                {
+                  grandAdmin && (
+                      selectedUser.isAdmin ? (
+                        <button
+                        onClick={() => handleRemoveAdmin(selectedUser._id)}
+                        >
+                          Remove from Admin
+                        </button>
+                      ) : (
+                        <button
+                          onClick={() => handleMakeAdmin(selectedUser._id)}
+                        >
+                          Make Admin
+                        </button>
+                      )
+                  ) 
+                }
+                
               </div>
             )}
           </div>

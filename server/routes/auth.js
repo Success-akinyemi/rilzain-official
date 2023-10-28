@@ -9,6 +9,8 @@ router.route('/register').post(controller.register)
 router.route('/login').post(controller.login)
 router.route('/forgotPassword').post(controller.forgotPassword)
 router.route('/user/makeAdmin').post(Protect, controller.makeAdmin)
+router.route('/user/removeAdmin').post(Protect, controller.removeAdmin)
+
 
 //GET ROUTES
 router.route('/user/:id').get(controller.getUser)

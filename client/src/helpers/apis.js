@@ -204,11 +204,11 @@ export async function updateHouse({id, title, price, desc, address, location, ho
 }
 
 /**MAKE USER ADMIN */
-export async function makeAdmin({id}){
+export async function makeAdmin({id, userId}){
     try {
         const token = await localStorage.getItem('authToken')
         console.log('ID', id)
-        const response = await axios.post('/api/user/makeAdmin', {id}, {headers: {Authorization: `Bearer ${token}`}})
+        const response = await axios.post('/api/user/makeAdmin', {id, userId}, {headers: {Authorization: `Bearer ${token}`}})
         
         if(response.data.statusMsg === 'success'){
             toast.success('User Status Updated')
@@ -219,8 +219,29 @@ export async function makeAdmin({id}){
             return response.data.data
         }
     } catch (error) {
-        toast.error('Failed To Update House')
-        throw new Error('Failed To Update House')   
+        toast.error('Failed To Update User')
+        throw new Error('Failed To Update User')   
+    }
+}
+
+/**MAKE USER ADMIN */
+export async function removeAdmin({id, userId}){
+    try {
+        const token = await localStorage.getItem('authToken')
+        console.log('ID', id)
+        const response = await axios.post('/api/user/removeAdmin', {id, userId}, {headers: {Authorization: `Bearer ${token}`}})
+        
+        if(response.data.statusMsg === 'success'){
+            toast.success('User Status Updated')
+            window.location.reload()
+            return response.data.data
+        }else{
+            toast.error(response.data.data)
+            return response.data.data
+        }
+    } catch (error) {
+        toast.error('Failed To Update User')
+        throw new Error('Failed To Update User')   
     }
 }
 

@@ -206,9 +206,16 @@ export async function getAllUser (req, res){
 }
 
 export async function makeAdmin (req, res){
-    const { id } = req.body
-    console.log('ID', id)
+    const { id, userId } = req.body
+    console.log('ID', id, 'USER', userId)
     try {
+
+        const grandAdmin = await UserModel.findById({ _id: userId })
+
+        if(!grandAdmin.isGrandAdmin){
+            res.status(400).json({ statusMsg: 'failed', data: 'Not Allowed'})
+        }
+
         const user = await UserModel.findById({ _id: id})
 
         if(!user){
@@ -216,6 +223,34 @@ export async function makeAdmin (req, res){
         }
 
         user.isAdmin = true
+        console.log('USER UPDATED')
+        await user.save()
+
+        res.status(200).json({ statusMsg: 'success', data: 'User Status Updated'})
+    } catch (error) {
+        console.log('ERROR UPDATING USER STATUS', error)
+        res.status(500).json({ statusMsg: 'failed', data: 'Failed to update user'})
+    }
+}
+
+export async function removeAdmin (req, res){
+    const { id, userId } = req.body
+    console.log('ID', id, 'USER', userId)
+    try {
+
+        const grandAdmin = await UserModel.findById({ _id: userId })
+
+        if(!grandAdmin.isGrandAdmin){
+            res.status(400).json({ statusMsg: 'failed', data: 'Not Allowed'})
+        }
+
+        const user = await UserModel.findById({ _id: id})
+
+        if(!user){
+            res.status(404).json({ statusMsg: 'failed', data: 'User not Found'})
+        }
+
+        user.isAdmin = false
         console.log('USER UPDATED')
         await user.save()
 
