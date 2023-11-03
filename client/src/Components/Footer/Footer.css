@@ -3,6 +3,9 @@
     background: var(--bg-1);
     margin-top: auto;
     padding: 100px 50px;
+}
+
+.footer .body{
     display: flex;
     align-items: start;
 }
@@ -77,6 +80,26 @@
     gap: 5px;
 }
 
+.footer .inPrint{
+    color: var(--second-color);
+    margin-top: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+}
+
+.footer .inPrint .name{
+    color: var(--bg-2);
+}
+
+.footer .inPrint .icons{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
 @media screen and (max-width: 768px){
     .footer{
         padding: 100px 25px;
@@ -92,6 +115,14 @@
     }
     
     .footer{
+        flex-direction: column;
+    }
+
+    .footer .body{
+        flex-direction: column;
+    }
+
+    .footer .inPrint{
         flex-direction: column;
     }
 

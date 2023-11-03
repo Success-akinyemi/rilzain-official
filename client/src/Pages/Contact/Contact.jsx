@@ -8,6 +8,7 @@ import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 import PhoneIcon from '@mui/icons-material/Phone';
 import ContactForm from '../../Components/ContactForm/ContactForm';
 import ChatBubbleIcon from '@mui/icons-material/ChatBubble';
+import LogoImg from '../../assets/Rilzain-Logo 2.png'
 
 function Contact({ toggle, isOpen }) {
   return (
@@ -15,6 +16,7 @@ function Contact({ toggle, isOpen }) {
         <Navbar toggle={toggle} />
         <DropDown isOpen={isOpen} toggle={toggle} />
         <div className="contact-container">
+          <img className='logoImg' src={LogoImg} alt='Logo' />
           <h2>Contact Us</h2>
           <div className="content">
             <div className="card card-1">
@@ -45,7 +47,7 @@ function Contact({ toggle, isOpen }) {
                   </span>
                   <span>
                     <p>Messages Us:</p>
-                    <a className='link' href="tel:+2348115397098" ><ChatBubbleIcon className='icon' /> 08115397098</a> 
+                    <a className='link' href="sms:+2348115397098?&body=Hi, rilzain Solutions I want to make Emquiries for properties. My name is.." ><ChatBubbleIcon className='icon' /> 08115397098</a> 
                   </span>
                 </div>
             </div>
